@@ -1,0 +1,3 @@
+2:00 - Analysis requirements
+3:00 - preparing application structure and grunt configuration
+1:00 - desing
