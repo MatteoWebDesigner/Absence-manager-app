@@ -34,7 +34,7 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= yeoman.app %>/src/{,*/}*.js'],
+        files: ['<%= yeoman.app %>/src/**/{,*/}*.js'],
         tasks: ['newer:jshint:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -46,11 +46,11 @@ module.exports = function (grunt) {
       },
       styles: {
         files: ['<%= yeoman.app %>/**/styles/{,*/}*.css'],
-        tasks: ['newer:copy:styles', 'autoprefixer']
+        tasks: ['newer:copy:styles']
       },
       less: {
         files: ["<%= yeoman.app %>/**/styles/less/{,*/}*.less"],
-        tasks: ["less:development"]
+        tasks: ["less:development", 'autoprefixer:development']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -62,6 +62,7 @@ module.exports = function (grunt) {
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
           '<%= yeoman.app %>/src/**/*.html',
+          '<%= yeoman.app %>/**/styles/{,*/}*.css',
           '.tmp/styles/{,*/}*.css',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
@@ -153,7 +154,10 @@ module.exports = function (grunt) {
     // Add vendor prefixed styles
     autoprefixer: {
       options: {
-        browsers: ['last 1 version']
+        browsers: ['last 2 version']
+      },
+      development: {
+        files: { '<%= yeoman.app %>/src/common/assets/styles/main.css' : '<%= yeoman.app %>/src/common/assets/styles/main.css' }
       },
       dist: {
         files: [{
@@ -362,14 +366,17 @@ module.exports = function (grunt) {
     less: {
       development: {
         options: {
-          paths: "<%= yeoman.app %>/src/common/assets/styles"
+          paths: "<%= yeoman.app %>/src/common/assets/styles",
+          cleancss: false,
+          yuicompress: false
         },
         files: {"<%= yeoman.app %>/src/common/assets/styles/main.css": "<%= yeoman.app %>/src/common/assets/styles/less/{,*/}*.less"}
       },
-      production: {
+      dist: {
         options: {
           paths: ["<%= yeoman.app %>/src/common/assets/styles"],
-          cleancss: true
+          cleancss: true,
+          yuicompress: true
         },
         files: {"<%= yeoman.app %>/src/common/assets/styles/main.css": "<%= yeoman.app %>/src/common/assets/styles/less/{,*/}*.less"}
       }
@@ -387,7 +394,7 @@ module.exports = function (grunt) {
       'wiredep',
       'less:development',
       'concurrent:server',
-      'autoprefixer',
+      'autoprefixer:development',
       'connect:livereload',
       'watch'
     ]);
@@ -409,9 +416,10 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'wiredep',
+    'less:dist',
     'useminPrepare',
     'concurrent:dist',
-    'autoprefixer',
+    'autoprefixer:dist',
     'concat',
     'ngAnnotate',
     'copy:dist',

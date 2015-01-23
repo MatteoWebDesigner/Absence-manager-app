@@ -24,21 +24,12 @@
     <header id="header">
       <div class="container">
         <span class="brand">Absence Manager Tool</span>
-
-        <!-- account -->
-        <div class="account">
-          <a href="#">Register</a> /
-          <a href="#">Sign In</a>
-        </div>
-
-        <!--
-        <account></account>
-        -->
+        <user-account></user-account>
       </div>
     </header>
 
     <div id="body" ng-view="">
-      <!-- <div class="container"></div> -->
+      <!-- <div class="container" ></div> -->
     </div>
 
     <footer id="footer">
@@ -67,22 +58,43 @@
     <!-- endbuild -->
 
     <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <!-- endbower -->
+	    <!-- bower:js -->
+	    <script src="bower_components/jquery/dist/jquery.js"></script>
+	    <script src="bower_components/angular/angular.js"></script>
+	    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	    <script src="bower_components/angular-animate/angular-animate.js"></script>
+	    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+	    <script src="bower_components/angular-resource/angular-resource.js"></script>
+	    <script src="bower_components/angular-route/angular-route.js"></script>
+	    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+	    <script src="bower_components/angular-touch/angular-touch.js"></script>
+	    <script src="bower_components/d3/d3.js"></script>
+	    <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="app.js"></script>
-    <script src="src/common/controllers/main.js"></script>
+      <script src="app.js"></script>
+      
+      <!-- Common -->
+      <script src="src/absence/common/services/absences-service.js"></script>
+      <script src="src/absence/common/controllers/main-controller.js"></script>
+
+      <!-- user-account -->
+      <script src="src/user-account/services/user-account-service.js"></script>
+      <script src="src/user-account/directives/user-account-directive.js"></script>
+      <script src="src/user-account/controllers/user-account-controller.js"></script>
+
+      <!-- absence-input -->
+      <script src="src/absence-input/directives/absence-input-directive.js"></script>
+      <script src="src/absence-input/controllers/absence-input-controller.js"></script>
+
+      <!-- chart -->
+      <script src="src/absence-chart/directives/absence-chart-directive.js"></script>
+      <script src="src/absence-chart/controllers/absence-chart-controller.js"></script>
+
+      <!-- calendar -->
+      <script src="src/absence-calendar/directives/absence-calendar-directive.js"></script>
+      <script src="src/absence-calendar/controllers/absence-calendar-controller.js"></script>
     <!-- endbuild -->
 </body>
 </html>

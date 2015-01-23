@@ -1,3 +1,8 @@
 2:00 - Analysis requirements
 3:00 - preparing application structure and grunt configuration
 1:00 - desing
+1:00 - configuration grunt autoprefix 
+2:00 - views folder structure
+13:00/00:00 - organized app folders structure and doc
+
+studying d3

@@ -6,7 +6,6 @@ body {
 }
 a {
   color: black;
-  -webkit-transition: color .2s;
   transition: color .2s;
 }
 a:hover {
@@ -15,11 +14,6 @@ a:hover {
 }
 /* class styles */
 #header {
-  background-image: -ms-linear-gradient(top left, #ffffff 0%, #e6e6e6 100%);
-  background-image: -moz-linear-gradient(top left, #ffffff 0%, #e6e6e6 100%);
-  background-image: -o-linear-gradient(top left, #ffffff 0%, #e6e6e6 100%);
-  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, #ffffff), color-stop(1, #e6e6e6));
-  background-image: -webkit-linear-gradient(top left, #ffffff 0%, #e6e6e6 100%);
   background-image: linear-gradient(to bottom right, #ffffff 0%, #e6e6e6 100%);
 }
 #header .brand {
@@ -45,3 +39,4 @@ a:hover {
 #footer .container {
   padding: 20px;
 }
+/* Responsive */

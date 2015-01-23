@@ -3,6 +3,36 @@
 install node module and bower library
 > npm install & bower install
 
+## App Folder Structure
+	index.html
+	app.js
+		/src/
+			/common/
+				/assets/
+					/styles/
+					/images/
+				{{repeat component's folders}}
+			
+			/component/
+				/services/
+					name-service.js
+				/directives/
+					name-directive.js
+				/controllers/
+					name-controller.js
+				/views/
+					name.html
+				name.js /* if the scripts are just few */
+
+			/sub-module/
+				/common/
+					{{repeat common's folders}}
+
+				/component/
+					{{repeat component's folders}}
+
+				{{repeat sub-module's folders}}
+
 
 // implement this for sorting
 var Absences = [
