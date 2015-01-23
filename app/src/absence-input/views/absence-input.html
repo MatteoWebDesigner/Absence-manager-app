@@ -1,25 +1,30 @@
 <div>
-	<h2>Insert your absence period</h2>
-	
+	<h1>Insert your absence period:</h1>
+
 	<form action="">
-		<label for="from">
-			From:
-			<input type="text" placeholder="DD/MM/YYYY">
-			<select>
+		<label for="from" class="dateTo">
+			<span class="label">From</span>
+			<input type="text" placeholder="DD/MM/YYYY" autofocus>
+			<select class="unit">
 				<option>AM</option>
 				<option>PM</option>
 			</select>
 		</label>
 
-		<label for="to">
-			To:
+		<label for="to" class="dateFrom">
+			<span class="label">To</span>
 			<input type="text" placeholder="DD/MM/YYYY">
-			<select>
+			<select class="unit">
 				<option>AM</option>
 				<option>PM</option>
 			</select>
 		</label>
 
-		<button>Request</button>
+		<div class="saveDate">
+			<button class="btn btn-primary btn-lg btn-block">Request</button>
+			<!--<p class="bg-warning">Absenteeism is within 4 days of another user</p>
+			<p class="bg-warning">Absenteeism is adjacent to another user</p>
+			<p class="bg-danger">Absenteeism overlaps with another user</p>-->
+		</div>
 	</form>
 </div>

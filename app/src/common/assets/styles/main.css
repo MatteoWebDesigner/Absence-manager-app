@@ -1,5 +1,193 @@
+#absence-input {
+  margin-bottom: 40px;
+}
+#absence-input h1 {
+  margin-bottom: 30px;
+  font-size: 20px;
+  color: #7E7E7E;
+}
+#absence-input label {
+  width: 100%;
+  display: block;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+  box-sizing: border-box;
+  font-size: 18px;
+  color: #7E7E7E;
+  background-image: linear-gradient(to bottom, #f8f8f8 0%, #e6e6e6 100%);
+}
+#absence-input label .label {
+  width: 23%;
+  display: block;
+  float: left;
+  padding: 8px 10px;
+  font-size: 18px;
+  color: #7E7E7E;
+  text-align: right;
+}
+#absence-input label input {
+  width: 50%;
+  padding: 5px;
+  border: 1px solid darkgrey;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+#absence-input label select {
+  position: relative;
+  right: 6px;
+  padding: 6px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+#absence-input .saveDate button {
+  padding: 15px 16px;
+  margin-bottom: 10px;
+}
+#absence-input .saveDate p {
+  padding: 15px 16px;
+  border-radius: 5px;
+}
+/* Responsive */
+@media (min-width: 992px) {
+  #absence-input label {
+    width: auto;
+    margin-right: 2%;
+    float: left;
+    text-align: center;
+  }
+  #absence-input label .label {
+    width: auto;
+    float: left;
+    text-align: right;
+  }
+  #absence-input .saveDate {
+    width: 27%;
+    float: left;
+  }
+}
+
+#calendar .controller {
+  margin-bottom: 10px;
+}
+#calendar .display {
+  border-top: 1px solid #e2e2e2;
+  border-left: 1px solid #e2e2e2;
+  overflow: auto;
+}
+#calendar .display .day {
+  float: left;
+  position: relative;
+  width: 20%;
+  height: 72px;
+  border-right: 1px solid #e2e2e2;
+  border-bottom: 1px solid #e2e2e2;
+  cursor: pointer;
+  background-color: white;
+  transition: background-color 0.5s;
+}
+#calendar .display .day:hover {
+  background-color: #F9F9F9;
+}
+#calendar .display .day .number {
+  padding: 5px 0 0 5px;
+  color: #929292;
+}
+#calendar .display .day .absent-user {
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+}
+
+#chart {
+  overflow: auto;
+}
+#chart .controller {
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+#chart #display path {
+  fill-opacity: 0.8;
+  stroke-opacity: 0;
+}
+#chart #display .vlines,
+#chart #display .hlines {
+  stroke: #96946d;
+  shape-rendering: crispEdges;
+  stroke-width: 1px;
+  stroke-opacity: 0.3;
+}
+#chart #display .hlabels line,
+#chart #display .vlabels line {
+  stroke: #96946d;
+  shape-rendering: crispEdges;
+  stroke-width: 1px;
+  stroke-opacity: 0.7;
+}
+#chart #display .hlabels text,
+#chart #display .vlabels text {
+  color: #96946d;
+  font-size: 12px;
+}
+#chart #display svg {
+  display: inline;
+  float: left;
+}
+#chart #display .legend {
+  display: inline-block;
+  margin: 10px;
+  margin-top: 30px;
+  margin-left: 0;
+  max-height: 280px;
+  min-width: 190px;
+  overflow: auto;
+  float: right;
+}
+#chart #display .legend table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+#chart #display .legend tr,
+#chart #display .legend td,
+#chart #display .legend div {
+  margin: 0;
+  padding: 0;
+}
+#chart #display .legend div {
+  width: 20px;
+  height: 20px;
+  float: left;
+}
+#chart #display .legend span {
+  padding: 0 5px;
+  margin: 0;
+}
+#chart #display .legend tr:hover {
+  background: silver;
+}
+#chart #display .distquantdiv h3 {
+  padding-left: 40px;
+  margin-bottom: 0;
+}
+#chart #display .stat {
+  font-size: 12px;
+}
+
 @charset "UTF-8";
 /* main.css */
+/* pseudo elements styles */
+:focus {
+  outline: none;
+}
+::-moz-selection {
+  color: white;
+  background-color: rgba(51, 122, 183, 0.8);
+}
+::selection {
+  color: white;
+  background-color: rgba(51, 122, 183, 0.8);
+}
 /* elements styles */
 body {
   background-color: #58544E;
@@ -9,12 +197,12 @@ a {
   transition: color .2s;
 }
 a:hover {
-  color: #B30000;
+  color: #337ab7;
   text-decoration: none;
 }
 /* class styles */
 #header {
-  background-image: linear-gradient(to bottom right, #ffffff 0%, #e6e6e6 100%);
+  background-image: linear-gradient(to bottom, #ffffff 0%, #e6e6e6 100%);
 }
 #header .brand {
   float: left;
@@ -23,7 +211,7 @@ a:hover {
   font-size: 16px;
   font-weight: bold;
 }
-#header .account {
+#header #account {
   float: right;
   padding: 14px 0;
 }

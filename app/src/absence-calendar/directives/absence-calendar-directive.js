@@ -2,9 +2,10 @@
 
 angular
 	.module('AbsenceManager')
-	.directive('calendarAbsenceIntensity', function () {
+	.directive('calendarAbsenceDensity', function () {
 		return {
 			  retrict: 'E'
-			, templateUrl: 'src/absence-calendar/views/absence-calendar.html'
+			, replace: true
+			, templateUrl: '/src/absence-calendar/views/absence-calendar.html'
 		};
 	});

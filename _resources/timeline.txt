@@ -3,6 +3,8 @@
 1:00 - desing
 1:00 - configuration grunt autoprefix 
 2:00 - views folder structure
-13:00/00:00 - organized app folders structure and doc
+2:00 - organized app folders structure and doc
+2:00 - search d3 example & analysis data model
+3:40 - desing
 
 studying d3

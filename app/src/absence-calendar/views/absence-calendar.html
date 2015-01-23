@@ -1,32 +1,106 @@
 <div>
-	Team density absence
-	<style>
-	.chart div {
-	  font: 10px sans-serif;
-	  background-color: steelblue;
-	  text-align: right;
-	  padding: 3px;
-	  margin: 1px;
-	  color: white;
-	}
-	</style>
+	<div class="controller">
+		<button>Prev Month</button>
+		<div>January</div>
+		<button>Next Month</button>
+	</div>
 
-	<div class="chart"></div>
-
-	<script>
-
-	var data = [4, 8, 15, 16, 23, 42];
-
-	var x = d3.scale.linear()
-	    .domain([0, d3.max(data)])
-	    .range([0, 420]);
-
-	d3.select(".chart")
-	  .selectAll("div")
-	    .data(data)
-	  .enter().append("div")
-	    .style("width", function(d) { return x(d) + "px"; })
-	    .text(function(d) { return d; });
-
-	</script>
+	<div class="display">
+		<div class="day">
+			<div class="number">1</div>
+		</div>
+		<div class="day">
+			<div class="number">2</div>
+			<div class="absent-user">
+				2 <i class="fa fa-user"></i>
+			</div>
+		</div>
+		<div class="day">
+			<div class="number">3</div>
+		</div>
+		<div class="day">
+			<div class="number">4</div>
+		</div>
+		<div class="day">
+			<div class="number">5</div>
+		</div>
+		<div class="day">
+			<div class="number">6</div>
+		</div>
+		<div class="day">
+			<div class="number">7</div>
+		</div>
+		<div class="day">
+			<div class="number">8</div>
+		</div>
+		<div class="day">
+			<div class="number">9</div>
+		</div>
+		<div class="day">
+			<div class="number">10</div>
+		</div>
+		<div class="day">
+			<div class="number">11</div>
+			<div class="absent-user">
+				3 <i class="fa fa-user"></i>
+			</div>
+		</div>
+		<div class="day">
+			<div class="number">12</div>
+		</div>
+		<div class="day">
+			<div class="number">13</div>
+		</div>
+		<div class="day">
+			<div class="number">14</div>
+		</div>
+		<div class="day">
+			<div class="number">15</div>
+		</div>
+		<div class="day">
+			<div class="number">16</div>
+		</div>
+		<div class="day">
+			<div class="number">17</div>
+		</div>
+		<div class="day">
+			<div class="number">18</div>
+		</div>
+		<div class="day">
+			<div class="number">19</div>
+		</div>
+		<div class="day">
+			<div class="number">20</div>
+		</div>
+		<div class="day">
+			<div class="number">22</div>
+		</div>
+		<div class="day">
+			<div class="number">23</div>
+		</div>
+		<div class="day">
+			<div class="number">24</div>
+		</div>
+		<div class="day">
+			<div class="number">25</div>
+		</div>
+		<div class="day">
+			<div class="number">26</div>
+		</div>
+		<div class="day">
+			<div class="number">27</div>
+		</div>
+		<div class="day">
+			<div class="number">28</div>
+		</div>
+		<div class="day">
+			<div class="number">29</div>
+		</div>
+		<div class="day">
+			<div class="number">30</div>
+		</div>
+		<div class="day">
+			<div class="number">31</div>
+		</div>
+	</div>
 </div>

@@ -6,6 +6,9 @@ install node module and bower library
 ## App Folder Structure
 	index.html
 	app.js
+		/dump/
+			name.json
+			
 		/src/
 			/common/
 				/assets/

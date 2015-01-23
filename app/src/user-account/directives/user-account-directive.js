@@ -5,6 +5,7 @@ angular
 	.directive('userAccount', function () {
 		return {
 			  retrict: 'E'
-			, templateUrl: 'src/user-account/views/user-account.html'
+			, replace: true
+			, templateUrl: '/src/user-account/views/user-account.html'
 		};
 	});

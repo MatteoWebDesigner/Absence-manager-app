@@ -1,0 +1,76 @@
+#absence-input {
+    margin-bottom: 40px;
+    h1 {
+        margin-bottom: 30px;
+        font-size: 20px;
+        color: #7E7E7E;
+    }
+    label {
+        width: 100%;
+        display: block;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        text-align: left;
+        box-sizing: border-box;
+        font-size: 18px;
+        color: #7E7E7E;
+        background-image: linear-gradient(to bottom, #F8F8F8 0%, #e6e6e6 100%);
+        .label {
+            width: 23%;
+            display: block;
+            float: left;
+            padding: 8px 10px;
+            font-size: 18px;
+            color: #7E7E7E;
+            text-align: right
+        }
+        input {
+            width: 50%;
+            padding: 5px;
+            border: 1px solid darkgrey;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+        select {
+            position: relative;
+            right: 6px;
+            padding: 6px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+    }
+    .saveDate {
+        button {
+        	padding: 15px 16px;
+            margin-bottom: 10px;
+        }
+        p {
+            padding: 15px 16px;
+            border-radius: 5px;
+        }
+    }
+}
+/* Responsive */
+
+@media (min-width: 992px) {
+    #absence-input {
+        label {
+            width: auto;
+            margin-right: 2%;
+            float: left;
+            text-align: center;
+
+        	.label {
+	            width: auto;
+	            float: left;
+	            text-align: right;
+	        }
+        }
+
+        .saveDate {
+            width: 27%;
+            float: left;
+        }
+    }
+}

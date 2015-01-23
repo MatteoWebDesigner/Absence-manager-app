@@ -2,7 +2,15 @@
 
 /* main.css */
 
+/* pseudo elements styles */
+:focus {
+	outline: none;
+}
 
+::selection { 
+	color: white;
+	background-color: rgba(51, 122, 183, 0.8);; 
+}
 
 /* elements styles */
 body {
@@ -11,19 +19,18 @@ body {
 
 a {
 	color: black;
-
 	-webkit-transition: color .2s;
 	transition: color .2s;
 
 	&:hover {
-		color: #B30000;
+		color: #337ab7;
 		text-decoration: none;
 	}
 }
 
 /* class styles */
 #header {
-	background-image: linear-gradient(to bottom right, #FFFFFF 0%, #E6E6E6 100%);
+	background-image: linear-gradient(to bottom, #FFFFFF 0%, #E6E6E6 100%);
 	
 	.brand {
 		float: left;
@@ -33,7 +40,7 @@ a {
 		font-weight: bold;
 	}
 
-	.account { 
+	#account { 
 		float: right;
 		padding: 14px 0;
 	}

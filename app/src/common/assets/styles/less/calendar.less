@@ -1,0 +1,40 @@
+#calendar {
+	.controller {
+		margin-bottom: 10px;
+	}
+	
+	.display {
+		@calendar-border-color: #E2E2E2;
+
+		border-top: 1px solid @calendar-border-color;
+		border-left: 1px solid @calendar-border-color;
+		overflow: auto;
+
+		.day {
+			float: left;
+			position: relative;
+			width: 20%;
+			height: 72px;
+			border-right: 1px solid @calendar-border-color;
+			border-bottom: 1px solid @calendar-border-color;
+			cursor: pointer;
+			background-color: white;
+			transition: background-color .5s;
+
+			&:hover {
+				background-color: #F9F9F9;
+			}
+
+			.number {
+				padding: 5px 0 0 5px;
+				color: #929292;
+			}
+
+			.absent-user {
+				position: absolute;
+				bottom: 0;
+				right: 5px;
+			}
+		}
+	}
+}
