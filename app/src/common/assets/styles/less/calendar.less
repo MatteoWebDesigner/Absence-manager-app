@@ -1,4 +1,9 @@
 #calendar {
+	/* status color */
+	@user-selection-color: #F3B353;
+	@user-absence-color: #E8C48E;
+	@others-absence-color: #cacccd;
+
 	margin-bottom: 40px;
 	overflow: auto;
 
@@ -8,6 +13,7 @@
 		padding: 0;
 		border-top: 1px solid @calendar-border-color;
 		border-left: 1px solid @calendar-border-color;
+		margin-bottom: 20px;
 		overflow: auto;
 
 		.day {
@@ -18,24 +24,119 @@
 			border-right: 1px solid @calendar-border-color;
 			border-bottom: 1px solid @calendar-border-color;
 			list-style-type: none;
-			cursor: pointer;
 			background-color: white;
-			transition: background-color .5s;
 
-			&:hover {
-				background-color: #F9F9F9;
+			.am {
+				position: absolute;
+				top:0;
+				left:0;
+				width: 50%;
+				height: 100%;
+				cursor: pointer;
+			}
+			
+			.pm {
+				position: absolute;
+				top:0;
+				right:0;
+				width: 50%;
+				height: 100%;
+				cursor: pointer;
 			}
 
 			.number {
+				position: absolute;
+				top: 0;
+				left: 0;
 				padding: 5px 0 0 5px;
 				color: #929292;
+				z-index: 1;
+			}
+			&.active-am .number { color: white; }
+
+			.absent-user-number {
+				position: absolute;
+				right: 5px;
+				bottom: 0;
+				display: none;
+				z-index: 1;
+			}
+			&.active-am .absent-user-number,
+			&.active-pm .absent-user-number {
+				display: block;
 			}
 
-			.absent-user {
-				position: absolute;
-				bottom: 0;
-				right: 5px;
+			&.selection-absence {
+				background-color: @user-selection-color;
+				.number { color: white; }
+
+				.am {
+					background-color: @user-selection-color;
+				}
+				.pm {
+					background-color: @user-selection-color;
+				}
+			}
+
+			&:hover {
+				background-color: @user-selection-color;
+				.number { color: white; }
+				
+				.am {
+					background-color: @user-selection-color;
+				}
+				.pm {
+					background-color: @user-selection-color;
+				}
 			}
 		}
+
+		.am.user-absence,
+		.pm.user-absence {
+			background-color: @user-absence-color;
+		}
+		
+		.am.others-absence,
+		.pm.others-absence {
+			background-color: @others-absence-color;
+		}
+	}
+
+	.legend {
+		padding: 0;
+		margin: 0;
+
+		li {
+			list-style-type: none;
+
+			.dot {
+				display: inline-block;
+				user-select: none;
+				border-radius: 50%;
+				height: 10px;
+				width: 10px;
+				border: 1px solid #cacccd;
+				background-color: white;
+			}
+		}
+		.user-absence {
+			.dot {
+				border:0;
+				background-color: @user-absence-color;
+			}
+		}
+
+		.others-absence {
+			.dot {
+				border:0;
+				background-color: @others-absence-color;
+			}
+		}
+	}
+
+	.tooltip {
+		position: absolute;
+		top: 0;
+		left: 0;
 	}
 }

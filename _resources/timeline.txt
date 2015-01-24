@@ -5,8 +5,8 @@
 2:00 - views folder structure
 2:00 - organized app folders structure and doc
 2:00 - search d3 example & analysis data model
-7:00 - desing
+11:30 - desing
 
-14:00/00:00 -
+19:45/23:00 - desing
 
 studying d3

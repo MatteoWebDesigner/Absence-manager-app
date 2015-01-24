@@ -8,130 +8,126 @@
 	</div>
 
 	<ul class="display">
-		<li class="day">
-			<div class="number">1</div>
-		</li>
+		<li class="day active-am active-pm">
+			<div class="am user-absence"></div>
+			<div class="pm others-absence"></div>
 
-		<li class="day">
-			<div class="number">2</div>
-			<div class="absent-user">
+			<div class="number">1</div>
+			<div class="absent-user-number">
 				2 <i class="fa fa-user"></i>
 			</div>
+
+			<div class="tooltip">
+				<form action="">
+					<label for="tooltip-absence-input-from" class="dateTo">
+						<span class="text-label">From</span>
+						<input type="text" id="tooltip-absence-input-from" maxlength="10" placeholder="DD/MM/YYYY" autofocus>
+						<select class="unit">
+							<option>AM</option>
+							<option>PM</option>
+						</select>
+					</label>
+
+					<label for="tooltip-absence-input-to" class="dateFrom">
+						<span class="text-label">To</span>
+						<input type="text" id="tooltip-absence-input-to" maxlength="10" placeholder="DD/MM/YYYY">
+						<select class="unit">
+							<option>AM</option>
+							<option>PM</option>
+						</select>
+					</label>
+
+					<label for="tooltip-absence-input-type" class="type">
+						<select id="tooltip-absence-input-type" class="unit">
+							<option>Present</option>
+							<option>Vacation</option>
+							<option>Public Holiday</option>
+							<option>Training</option>
+						</select>
+					</label>
+
+					<div class="saveDate">
+						<button class="btn btn-primary btn-lg btn-block">Request</button>
+					</div>
+				</form>
+			</div>
 		</li>
 
-		<li class="day">
-			<div class="number">3</div>
-		</li>
+		<li class="day selection-absence">
+			<div class="am"></div>
+			<div class="pm"></div>
 
-		<li class="day">
-			<div class="number">4</div>
-			<div class="absent-user">
-				3 <i class="fa fa-user"></i>
+			<div class="number">2</div>
+			<div class="absent-user-number">
+				0 <i class="fa fa-user"></i>
 			</div>
 		</li>
 
 		<li class="day">
+			<div class="am"></div>
+			<div class="pm"></div>
+
+			<div class="number">3</div>
+			<div class="absent-user-number">
+				0 <i class="fa fa-user"></i>
+			</div>
+		</li>
+
+		<li class="day">
+			<div class="am"></div>
+			<div class="pm"></div>
+
+			<div class="number">4</div>
+			<div class="absent-user-number">
+				0 <i class="fa fa-user"></i>
+			</div>
+		</li>
+
+		<li class="day">
+			<div class="am"></div>
+			<div class="pm"></div>
+
 			<div class="number">5</div>
+			<div class="absent-user-number">
+				0 <i class="fa fa-user"></i>
+			</div>
 		</li>
 
 		<li class="day">
+			<div class="am"></div>
+			<div class="pm"></div>
+
 			<div class="number">6</div>
+			<div class="absent-user-number">
+				0 <i class="fa fa-user"></i>
+			</div>
 		</li>
 
 		<li class="day">
+			<div class="am"></div>
+			<div class="pm"></div>
+
 			<div class="number">7</div>
+			<div class="absent-user-number">
+				0 <i class="fa fa-user"></i>
+			</div>
+		</li>
+	</ul>
+
+	<ul class="legend">
+		<li>
+			<i class="dot"></i> No absence
 		</li>
 
-		<li class="day">
-			<div class="number">8</div>
+		<!-- user hover -->
+		<!-- user selection -->
+
+		<li class="user-absence">
+			<i class="dot"></i> User absence
 		</li>
 
-		<li class="day">
-			<div class="number">9</div>
-		</li>
-
-		<li class="day">
-			<div class="number">10</div>
-		</li>
-
-		<li class="day">
-			<div class="number">11</div>
-		</li>
-
-		<li class="day">
-			<div class="number">12</div>
-		</li>
-
-		<li class="day">
-			<div class="number">13</div>
-		</li>
-
-		<li class="day">
-			<div class="number">14</div>
-		</li>
-
-		<li class="day">
-			<div class="number">15</div>
-		</li>
-
-		<li class="day">
-			<div class="number">16</div>
-		</li>
-
-		<li class="day">
-			<div class="number">17</div>
-		</li>
-
-		<li class="day">
-			<div class="number">18</div>
-		</li>
-
-		<li class="day">
-			<div class="number">19</div>
-		</li>
-
-		<li class="day">
-			<div class="number">20</div>
-		</li>
-
-		<li class="day">
-			<div class="number">22</div>
-		</li>
-
-		<li class="day">
-			<div class="number">23</div>
-		</li>
-
-		<li class="day">
-			<div class="number">24</div>
-		</li>
-
-		<li class="day">
-			<div class="number">25</div>
-		</li>
-
-		<li class="day">
-			<div class="number">26</div>
-		</li>
-
-		<li class="day">
-			<div class="number">27</div>
-		</li>
-
-		<li class="day">
-			<div class="number">28</div>
-		</li>
-
-		<li class="day">
-			<div class="number">29</div>
-		</li>
-
-		<li class="day">
-			<div class="number">30</div>
-		</li>
-
-		<li class="day">
-			<div class="number">31</div>
+		<li class="others-absence">
+			<i class="dot"></i> Others absence
 		</li>
 	</ul>
 </div>
