@@ -3,13 +3,14 @@
 /* main.css */
 
 /* pseudo elements styles */
-:focus {
+:focus,
+a:focus {
 	outline: none;
 }
 
 ::selection { 
 	color: white;
-	background-color: rgba(51, 122, 183, 0.8);; 
+	background-color: rgba(51, 122, 183, 0.8);
 }
 
 /* elements styles */
@@ -19,13 +20,25 @@ body {
 
 a {
 	color: black;
-	-webkit-transition: color .2s;
 	transition: color .2s;
 
 	&:hover {
 		color: #337ab7;
 		text-decoration: none;
 	}
+}
+
+h1 {
+    margin-bottom: 30px;
+    font-size: 20px;
+    color: #7E7E7E;
+}
+
+h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #7E7E7E;
 }
 
 /* class styles */
@@ -40,9 +53,40 @@ a {
 		font-weight: bold;
 	}
 
-	#account { 
-		float: right;
+	#account {
 		padding: 14px 0;
+	}
+
+	/* responsive navigation */
+	.navbar-nav {
+		width: 100%;
+		margin: 0;
+	}
+
+	/* button [=] */
+	.navbar-toggle {
+		&:hover {
+			background-color: #f9f9f9;
+		}
+
+		.icon-bar {
+			background-color: black;
+		}
+	}
+
+	/* navigation collapsable */
+	.navbar-header {
+		float: none;
+	}
+
+	.navbar-header,
+	.navbar-collapse {
+	 	margin-right: -15px;
+	 	margin-left: -15px;
+	}
+
+	.bs-navbar-collapse {
+		background-color: #DDDDDD;
 	}
 }
 
@@ -51,6 +95,81 @@ a {
 
 	.container {
 		padding: 20px;
+
+		.controller {
+			background-color: #337ab7;
+			color: white;
+			border-top-right-radius: 6px;
+			border-top-left-radius: 6px;
+			position: relative;
+			overflow: hidden;
+
+			.title {
+				width: 100%;
+				padding: 10px 0;
+				display: block;
+				font-size: 18px;
+				font-weight: bold;
+				text-align: center;
+			}
+
+			button {
+				position: absolute;
+				top: 0;
+				right: 0;
+				display: block;
+				width: 20%;
+				height: 45px;
+				border: 0;
+				background-color: #3275AF;
+				
+				.arrow {
+					position: absolute;
+					top: 0;
+					right: 0;
+					display: block;
+					width: 0;
+					height: 0;
+					margin: 10px;
+					border-top: 10px solid transparent;
+					border-bottom: 10px solid transparent;
+					border-left: 10px solid white;
+					overflow: hidden;
+					transition: border-color .2s;
+				}
+
+				&:first-child {
+					right: initial;
+					left: 0;
+
+					.arrow {
+						right: initial;
+						left: 0;
+						border: 0;
+						border-top: 10px solid transparent;
+						border-bottom: 10px solid transparent;
+						border-right: 10px solid white;
+					}
+				}
+
+				&:hover {
+					background-color: #2E6A9F;
+
+					.arrow {
+						border-left-color: #F3F3F3;
+					}
+				}
+
+				&:first-child:hover {
+					background-color: #2E6A9F;
+					
+					.arrow {
+						border-left-color: transparent;
+						border-right-color: #F3F3F3;
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -63,6 +182,18 @@ a {
 }
 
 /* Responsive */
-@media (min-width: 992px) {
-	
+@media (min-width: 768px) {
+	#header {
+		/* responsive navigation */
+		.navbar-header {
+			float:left;
+		}
+
+		.bs-navbar-collapse {
+			float: right;
+			background-color: transparent;
+		}
+	}
 }
+
+@media (min-width: 992px) {}

@@ -2,21 +2,30 @@
 	<h1>Insert your absence period:</h1>
 
 	<form action="">
-		<label for="from" class="dateTo">
-			<span class="label">From</span>
-			<input type="text" placeholder="DD/MM/YYYY" autofocus>
+		<label for="form-absence-input-from" class="dateTo">
+			<span class="text-label">From</span>
+			<input type="text" id="form-absence-input-from" maxlength="10" placeholder="DD/MM/YYYY" autofocus>
 			<select class="unit">
 				<option>AM</option>
 				<option>PM</option>
 			</select>
 		</label>
 
-		<label for="to" class="dateFrom">
-			<span class="label">To</span>
-			<input type="text" placeholder="DD/MM/YYYY">
+		<label for="form-absence-input-to" class="dateFrom">
+			<span class="text-label">To</span>
+			<input type="text" id="form-absence-input-to" maxlength="10" placeholder="DD/MM/YYYY">
 			<select class="unit">
 				<option>AM</option>
 				<option>PM</option>
+			</select>
+		</label>
+
+		<label for="form-absence-input-type" class="type">
+			<select id="form-absence-input-type" class="unit">
+				<option>Present</option>
+				<option>Vacation</option>
+				<option>Public Holiday</option>
+				<option>Training</option>
 			</select>
 		</label>
 

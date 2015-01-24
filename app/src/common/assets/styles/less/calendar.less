@@ -1,11 +1,11 @@
 #calendar {
-	.controller {
-		margin-bottom: 10px;
-	}
-	
+	margin-bottom: 40px;
+	overflow: auto;
+
 	.display {
 		@calendar-border-color: #E2E2E2;
 
+		padding: 0;
 		border-top: 1px solid @calendar-border-color;
 		border-left: 1px solid @calendar-border-color;
 		overflow: auto;
@@ -17,6 +17,7 @@
 			height: 72px;
 			border-right: 1px solid @calendar-border-color;
 			border-bottom: 1px solid @calendar-border-color;
+			list-style-type: none;
 			cursor: pointer;
 			background-color: white;
 			transition: background-color .5s;
