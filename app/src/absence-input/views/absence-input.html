@@ -1,9 +1,20 @@
 <div>
-	<form action="">
+	<form name="inputAbsence" novalidate>
 		<label for="form-absence-input-from" class="dateTo">
 			<span class="text-label">From</span>
-			<input type="text" id="form-absence-input-from" maxlength="10" placeholder="DD/MM/YYYY" autofocus>
-			<select class="unit">
+			
+			<input type="text" id="form-absence-input-from" 
+				ng-model="absenceSubmit.dateFrom"
+				valide-date
+				name="dateFrom"
+				maxlength="10"
+				min="{{minDate}}" 
+				max="{{maxDate}}"
+				placeholder="DD/MM/YYYY" 
+				required
+				autofocus>
+
+			<select class="unit" ng-model="absenceSubmit.unitFrom">
 				<option>AM</option>
 				<option>PM</option>
 			</select>
@@ -11,15 +22,24 @@
 
 		<label for="form-absence-input-to" class="dateFrom">
 			<span class="text-label">To</span>
-			<input type="text" id="form-absence-input-to" maxlength="10" placeholder="DD/MM/YYYY">
-			<select class="unit">
+			<input type="text" id="form-absence-input-to" 
+				ng-model="absenceSubmit.dateTo"
+				ng-valide-date
+				name="dateTo"
+				maxlength="10"
+				min="{{minDate}}" 
+				max="{{maxDate}}"
+				placeholder="DD/MM/YYYY" 
+				required>
+
+			<select class="unit" ng-model="absenceSubmit.unitTo">
 				<option>AM</option>
 				<option>PM</option>
 			</select>
 		</label>
 
 		<label for="form-absence-input-type" class="type">
-			<select id="form-absence-input-type" class="unit">
+			<select id="form-absence-input-type" class="unit" ng-model="absenceSubmit.type">
 				<option>Present</option>
 				<option>Vacation</option>
 				<option>Public Holiday</option>
@@ -28,7 +48,7 @@
 		</label>
 
 		<div class="saveDate">
-			<button class="btn btn-primary btn-lg btn-block">Request</button>
+			<button class="btn btn-primary btn-lg btn-block" ng-click="inputAbsence.$valid && request()">Request</button>
 		</div>
 	</form>
 </div>

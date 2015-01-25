@@ -6,6 +6,7 @@ angular
 		return {
 			  retrict: 'E'
 			, replace: true
+			, controller : 'AbsenceInputController'
 			, templateUrl: '/src/absence-input/views/absence-input.html'
 			, scope : { name: '=name' }
 			, link : function (scope, element, attrs) {

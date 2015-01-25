@@ -18,7 +18,7 @@
     <!-- endbuild -->
 </head>
 
-<body ng-app="AbsenceManager">
+<body ng-app="AbsenceManager" ng-controller="UserAccountController">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -39,7 +39,17 @@
             <nav class="collapse navbar-collapse bs-navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li>
-                        <user-account id="account"></user-account>
+                        <div id="account">
+                            <div ng-switch on="currentUser !== null">
+                              <div ng-switch-when="true">
+                                  <span>Hi <strong>{{currentUser.name}}</strong></span>
+                              </div>
+                              <div ng-switch-default>
+                                <a href="#/">Sign up</a> /
+                                <a href="#/login/">Log in</a>
+                              </div>
+                          </div>
+                        </div>
                     </li>
                 </ul>
             </nav>
@@ -113,6 +123,7 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -126,11 +137,13 @@
     <script src="src/common/controllers/main-controller.js"></script>
 
     <!-- user-account -->
-    <script src="src/user-account/services/user-account-service.js"></script>
-    <script src="src/user-account/directives/user-account-directive.js"></script>
+    <script src="src/user-account/services/authorization-service.js"></script>
+    <script src="src/user-account/services/session-service.js"></script>
+    <script src="src/user-account/controllers/login-controller.js"></script>
     <script src="src/user-account/controllers/user-account-controller.js"></script>
 
     <!-- absence-input -->
+    <script src="src/absence-input/directives/validate-date-directive.js"></script>
     <script src="src/absence-input/directives/absence-input-directive.js"></script>
     <script src="src/absence-input/controllers/absence-input-controller.js"></script>
 

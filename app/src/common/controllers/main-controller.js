@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name AbsenceManager.Absence.controller:MainCtrl
+ * @name AbsenceManager.Absence.controller:MainController
  * @description
- * # MainCtrl
+ * # MainController
  * Controller of the AbsenceManager
  */
 angular.module('AbsenceManager')
-  .controller('MainCtrl', function ($scope) {
-  	// code here
-  });
+	.controller('MainController', function ($scope) {
+
+	});
