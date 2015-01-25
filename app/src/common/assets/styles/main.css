@@ -61,11 +61,82 @@
 #absence-input .saveDate button {
   width: 100%;
   padding: 15px 16px;
-  margin-bottom: 10px;
 }
 #absence-input .saveDate p {
   padding: 15px 16px;
   border-radius: 5px;
+}
+.tooltip {
+  margin-bottom: 40px;
+  overflow: auto;
+}
+.tooltip label {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  text-align: right;
+  font-size: 18px;
+  color: #7E7E7E;
+  white-space: nowrap;
+  background-image: linear-gradient(to bottom, #f8f8f8 0%, #e6e6e6 100%);
+}
+.tooltip label .text-label {
+  display: block;
+  float: left;
+  padding: 8px 10px 8px 0;
+  font-size: 16px;
+  color: #7E7E7E;
+  text-align: right;
+}
+.tooltip label input {
+  position: relative;
+  left: 6px;
+  width: 135px;
+  padding: 5px 10px;
+  border: 1px solid darkgrey;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.tooltip label input:focus {
+  border-color: #337ab7;
+  box-shadow: 0px 0px 5px -1px rgba(51, 122, 183, 0.8);
+}
+.tooltip label select {
+  padding: 6px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.tooltip label select:focus {
+  color: #337ab7;
+  border-color: #337ab7;
+  box-shadow: 0px 0px 5px -1px rgba(51, 122, 183, 0.8);
+}
+.tooltip .type {
+  width: 100%;
+  min-width: 0;
+}
+.tooltip .type select {
+  width: 100%;
+  right: 0;
+  border-radius: 10px;
+  text-align: center;
+}
+.tooltip .saveDate {
+  width: 100%;
+}
+.tooltip .saveDate button {
+  width: 100%;
+  padding: 15px 16px;
+}
+.tooltip .saveDate p {
+  padding: 15px 16px;
+  border-radius: 5px;
+}
+.tooltip label input {
+  left: 7px;
+  padding: 7px 10px;
 }
 /* Responsive */
 @media (min-width: 375px) {
@@ -114,14 +185,14 @@
 #calendar {
   /* status color */
   margin-bottom: 40px;
-  overflow: auto;
+  overflow: visible;
 }
 #calendar .display {
   padding: 0;
   border-top: 1px solid #e2e2e2;
   border-left: 1px solid #e2e2e2;
   margin-bottom: 20px;
-  overflow: auto;
+  overflow: visible;
 }
 #calendar .display .day {
   float: left;
@@ -230,11 +301,6 @@
   border: 0;
   background-color: #cacccd;
 }
-#calendar .tooltip {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
 
 #chart {
   margin-bottom: 40px;
@@ -268,18 +334,15 @@
   font-size: 12px;
 }
 #chart #display svg {
-  display: inline;
-  float: left;
+  display: block;
 }
 #chart #display .legend {
-  display: inline-block;
+  width: 100%;
+  display: block;
   margin: 10px;
   margin-top: 30px;
   margin-left: 0;
-  max-height: 280px;
-  min-width: 190px;
   overflow: auto;
-  float: right;
 }
 #chart #display .legend table {
   border-collapse: collapse;
@@ -351,6 +414,11 @@ h3 {
   color: #7E7E7E;
 }
 /* general class */
+.clear:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 .bg-warning,
 .bg-danger {
   padding: 10px;
@@ -470,7 +538,76 @@ h3 {
 #footer .container {
   padding: 20px;
 }
+.tooltip {
+  display: none;
+  position: absolute;
+  bottom: 30px;
+  left: -85px;
+  width: 310px;
+  padding: 10px;
+  border-radius: 10px;
+  border-color: #337ab7;
+  margin: -10px;
+  box-shadow: 0px 0px 5px -1px rgba(51, 122, 183, 0.8);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: normal;
+  background-color: white;
+  visibility: visible;
+  overflow: visible;
+  opacity: 0;
+  z-index: 1000;
+  transition: opacity 2s;
+}
+.tooltip.active {
+  display: block;
+  opacity: 1;
+}
+.tooltip .arrow-down {
+  position: absolute;
+  bottom: -11px;
+  left: 50%;
+  margin-left: -5px;
+  content: '.';
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #D8E6F1;
+  overflow: hidden;
+}
+.tooltip:before {
+  position: absolute;
+  bottom: -11px;
+  left: 50%;
+  margin-left: -5px;
+  content: '.';
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #D8E6F1;
+  overflow: hidden;
+  bottom: -10px;
+  border-top-color: #FFFFFF;
+  z-index: 2;
+}
+.tooltip:after {
+  position: absolute;
+  bottom: -11px;
+  left: 50%;
+  margin-left: -5px;
+  content: '.';
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #D8E6F1;
+  overflow: hidden;
+}
 #lightbox {
+  display: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -478,6 +615,12 @@ h3 {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
+  opacity: 0;
+  transition: opacity 2s;
+}
+#lightbox.active {
+  display: block;
+  opacity: 1;
 }
 #lightbox .container {
   width: 80%;

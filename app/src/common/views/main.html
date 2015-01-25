@@ -1,17 +1,29 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<absence-input id="absence-input"></absence-input>
+			<div id="absence-input">
+				<h1>Insert your absence period:</h1>
+
+				<absence-input name="page"></absence-input>
+			</div>
 		</div>
 	</div>
 
 	<div class="row"> 
 		<div class="col-md-7">
-			<calendar-absence-density id="calendar"></calendar-absence-density>
+			<div id="calendar">
+				<h3>Team Absence Calendar</h3>
+
+				<calendar-absence-density></calendar-absence-density>
+			</div>
 		</div>
 
 		<div class="col-md-5">
-			<chart-absence-density id="chart"></chart-absence-density>
+			<div id="chart">
+				<h3>Team density absence</h3>
+
+				<chart-absence-density></chart-absence-density>
+			</div>
 		</div> 
 	</div>
 </div>

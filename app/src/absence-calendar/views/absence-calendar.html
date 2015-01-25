@@ -1,13 +1,11 @@
 <div>
-	<h3>Team Absence Calendar</h3>
-
 	<div class="controller">
 		<button><span class="arrow">Prev Month</span></button>
 		<div class="title">January</div>
 		<button><span class="arrow">Next Month</span></button>
 	</div>
 
-	<ul class="display">
+	<ul class="display clear">
 		<li class="day active-am active-pm">
 			<div class="am user-absence"></div>
 			<div class="pm others-absence"></div>
@@ -17,40 +15,7 @@
 				2 <i class="fa fa-user"></i>
 			</div>
 
-			<div class="tooltip">
-				<form action="">
-					<label for="tooltip-absence-input-from" class="dateTo">
-						<span class="text-label">From</span>
-						<input type="text" id="tooltip-absence-input-from" maxlength="10" placeholder="DD/MM/YYYY" autofocus>
-						<select class="unit">
-							<option>AM</option>
-							<option>PM</option>
-						</select>
-					</label>
-
-					<label for="tooltip-absence-input-to" class="dateFrom">
-						<span class="text-label">To</span>
-						<input type="text" id="tooltip-absence-input-to" maxlength="10" placeholder="DD/MM/YYYY">
-						<select class="unit">
-							<option>AM</option>
-							<option>PM</option>
-						</select>
-					</label>
-
-					<label for="tooltip-absence-input-type" class="type">
-						<select id="tooltip-absence-input-type" class="unit">
-							<option>Present</option>
-							<option>Vacation</option>
-							<option>Public Holiday</option>
-							<option>Training</option>
-						</select>
-					</label>
-
-					<div class="saveDate">
-						<button class="btn btn-primary btn-lg btn-block">Request</button>
-					</div>
-				</form>
-			</div>
+			<absence-input name="tooltip" class="tooltip"></absence-input>
 		</li>
 
 		<li class="day selection-absence">

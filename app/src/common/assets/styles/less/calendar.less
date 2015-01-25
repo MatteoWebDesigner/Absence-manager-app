@@ -5,7 +5,7 @@
 	@others-absence-color: #cacccd;
 
 	margin-bottom: 40px;
-	overflow: auto;
+	overflow: visible;
 
 	.display {
 		@calendar-border-color: #E2E2E2;
@@ -14,7 +14,7 @@
 		border-top: 1px solid @calendar-border-color;
 		border-left: 1px solid @calendar-border-color;
 		margin-bottom: 20px;
-		overflow: auto;
+		overflow: visible;
 
 		.day {
 			float: left;
@@ -132,11 +132,5 @@
 				background-color: @others-absence-color;
 			}
 		}
-	}
-
-	.tooltip {
-		position: absolute;
-		top: 0;
-		left: 0;
 	}
 }
