@@ -6,6 +6,28 @@
 	</div>
 
 	<ul class="display clear">
+		<li class="day" 
+			ng-repeat="day in MonthData" 
+			ng-class="{
+				'active-am' : day.am.length,
+				'active-pm' : day.pm.length
+			}">
+
+			<div class="am" ng-class="{
+				'active-am' : day.am,
+				'active-pm' : day.pm
+			}"></div> <!-- <div class="am user-absence"> -->
+			<div class="pm"></div> <!-- <div class="pm others-absence"></div> -->
+
+			<div class="number">{{ day.number }}</div>
+			<div class="absent-user-number">
+				{{ day.user.length }} <i class="fa fa-user"></i>
+			</div>
+
+			<absence-input name="tooltip" class="tooltip"></absence-input>
+		</li>
+
+		<!--
 		<li class="day active-am active-pm">
 			<div class="am user-absence"></div>
 			<div class="pm others-absence"></div>
@@ -77,6 +99,7 @@
 				0 <i class="fa fa-user"></i>
 			</div>
 		</li>
+		-->
 	</ul>
 
 	<ul class="legend">

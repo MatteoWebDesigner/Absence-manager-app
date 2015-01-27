@@ -6,6 +6,7 @@ angular
 		return {
 			  retrict: 'E'
 			, replace: true
+			, controller: 'CalendarController'
 			, templateUrl: '/src/absence-calendar/views/absence-calendar.html'
 		};
 	});

@@ -325,16 +325,21 @@ module.exports = function (grunt) {
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
-        }, {
+        },{
           expand: true,
           cwd: 'bower_components/bootstrap/dist',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
+        },{ 
+          expand: true, 
+          cwd: 'bower_components/components-font-awesome', 
+          src: 'fonts/*', 
+          dest: '<%= yeoman.dist %>' 
         }]
       },
       styles: {
         expand: true,
-        cwd: '<%= yeoman.app %>/styles',
+        cwd: '<%= yeoman.app %>/src/common/assets/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
       }
@@ -363,6 +368,35 @@ module.exports = function (grunt) {
       }
     },
 
+    // devcode
+    devcode : {
+      options : {
+        html: true,        // html files parsing?
+        js: true,          // javascript files parsing?
+        css: true,         // css files parsing?
+        clean: true,       // removes devcode comments even if code was not removed
+        block: {
+          open: 'devcode', // with this string we open a block of code
+          close: 'endcode' // with this string we close a block of code
+        },
+        dest: 'dist'       // default destination which overwrittes environment variable
+      },
+      server : {           // settings for task used with 'devcode:server'
+        options: {
+            source: '<%= yeoman.app %>/',
+            dest: '.tmp/',
+            env: 'development'
+        }
+      },
+      dist : {             // settings for task used with 'devcode:dist'
+        options: {
+          source: '.tmp/concat/scripts/',
+          dest: '.tmp/concat/scripts/',
+          env: 'prd'
+        }
+      }
+    },
+
     // Less compiler
     less: {
       development: {
@@ -381,6 +415,31 @@ module.exports = function (grunt) {
         },
         files: {"<%= yeoman.app %>/src/common/assets/styles/main.css": "<%= yeoman.app %>/src/common/assets/styles/less/{,*/}*.less"}
       }
+    },
+
+    // ng template
+    ngtemplates: {
+      app: {
+        src: ['./**/views/**.html', './**/views/**/**.html'], //'app/src/{,*/}views/{,*/}*.html',
+        dest: 'app/src/common/app.templates.js',
+        options: {
+          prefix: '/',
+          module: 'AbsenceManager',
+          url: function (url) {
+            return url.replace('./app/', ''); // fix for absolute path urls
+          },
+          htmlmin: {
+            collapseBooleanAttributes:      true,
+            collapseWhitespace:             true,
+            removeAttributeQuotes:          true,
+            removeComments:                 true,
+            removeEmptyAttributes:          true,
+            removeRedundantAttributes:      true,
+            removeScriptTypeAttributes:     true,
+            removeStyleLinkTypeAttributes:  true
+          }
+        }
+      }
     }
 
   });
@@ -392,6 +451,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'devcode:server',
       'wiredep',
       'less:development',
       'concurrent:server',
@@ -421,13 +481,15 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer:dist',
+    'ngtemplates',
     'concat',
+    'devcode:dist',
     'ngAnnotate',
     'copy:dist',
     'cdnify',
     'cssmin',
     'uglify',
-    'filerev',
+    //'filerev',
     'usemin',
     'htmlmin'
   ]);

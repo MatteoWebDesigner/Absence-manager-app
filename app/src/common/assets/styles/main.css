@@ -35,6 +35,13 @@
   border-color: #337ab7;
   box-shadow: 0px 0px 5px -1px rgba(51, 122, 183, 0.8);
 }
+#absence-input label input.ng-invalid.ng-dirty {
+  border-color: red;
+}
+#absence-input label input.ng-invalid.ng-dirty:focus {
+  border-color: red;
+  box-shadow: 0px 0px 5px -1px red;
+}
 #absence-input label select {
   padding: 6px;
   border-top-right-radius: 10px;
@@ -102,6 +109,13 @@
 .tooltip label input:focus {
   border-color: #337ab7;
   box-shadow: 0px 0px 5px -1px rgba(51, 122, 183, 0.8);
+}
+.tooltip label input.ng-invalid.ng-dirty {
+  border-color: red;
+}
+.tooltip label input.ng-invalid.ng-dirty:focus {
+  border-color: red;
+  box-shadow: 0px 0px 5px -1px red;
 }
 .tooltip label select {
   padding: 6px;
@@ -283,9 +297,6 @@
 }
 #calendar .legend li .dot {
   display: inline-block;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   border-radius: 50%;
   height: 10px;
@@ -380,10 +391,6 @@
 :focus,
 a:focus {
   outline: none;
-}
-::-moz-selection {
-  color: white;
-  background-color: rgba(51, 122, 183, 0.8);
 }
 ::selection {
   color: white;
