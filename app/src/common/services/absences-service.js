@@ -4,7 +4,7 @@ angular
 	.module('AbsenceManager')
 	.factory('AbsenceService', function($log, $q, $http) {
         var service = {
-            get: function (parameters) {
+            get : function () {
                 return $http.get('/dump/absences.json')
                     .success(function(data, status, headers, config) {
                         return data;
@@ -13,156 +13,141 @@ angular
                         return data;
                     });
             },
-            post: function (parameters) {
+            post : function (poSubmitParams) {
                 var deferred = $q.defer();
 
                 // emulate the server response
                 setTimeout(function() {
                     // response from the server
-                    if (auth !== null) {
-                        $log.debug('EXAMPLE SERVER UPDATE REQUEST', parameters);
-                        deferred.resolve('Absence submitted');
-                    } else {
-                        $log.debug('ACCESS DENIED', parameters);
-                        deferred.reject('Your are not logged in');
-                    }
+                    $log.debug('EXAMPLE SERVER UPDATE REQUEST', poSubmitParams);
+                    deferred.resolve('Absence submitted');
                 }, 200);
 
                 return deferred.promise;
             },
-            submit: function (parameters) {
-                return this.get()
-                    .then(function(AbsenceData) {
-                        if ( selectRangeDate('overlap', parameters) ) {
-                            return 'Absenteeism overlaps with another user';
-                        }
-                        if ( selectRangeDate('adjacent', parameters) ) {
-                            return 'Absenteeism is adjacent to another user';
-                        }
-                        if ( 0 ) {
-                            return 'Absenteeism is within 4 days of another user';
-                        }
-                        //return this.post(parameters);
-                    
-                        function selectRangeDate (methodName, poDateRange) {
-                            // methods:
-                            var methods = {
-                                "overlap": function () {
-                                    // first date
-                                    var dateInstance = moment(startDate);
-                                    var dateInstanceFormatted = dateInstance.format('DD/MM/YYYY')
+            checkClashes : function (poaAbsenceData, poSubmitParams) {
+                var deferred = $q.defer();
 
-                                    if (poDateRange.unitFrom == 'PM') {
-                                        var index = checkAbsenceDate(dateInstanceFormatted, 'PM'); 
-                                        if (index) { return index };
-                                    } else {
-                                        var index = checkAbsenceDate(dateInstanceFormatted, 'AM'); 
-                                        if (index) { return index };
+                if ( selectRangeDate('overlap', poSubmitParams) ) {
+                    deferred.reject('Absenteeism overlaps with another user'); ;
+                }
 
-                                        index = checkAbsenceDate(dateInstanceFormatted, 'PM'); 
-                                        if (index) { return index };
-                                    }
+                // if ( selectRangeDate('adjacent', poSubmitParams) ) {
+                //     deferred.reject('Absenteeism is adjacent to another user');
+                // }
+                // if ( selectRangeDate('near', poSubmitParams, 4) ) {
+                //     deferred.reject('Absenteeism is within 4 days of another user');
+                // }
 
-                                    // loop two index
-                                    // I used two index one for alternate the Unit and another for increase the date
-                                    for (var i = 0, j = 0; i < lngDays;) {
-                                        var frequence = j % 2;
+                deferred.resolve(poSubmitParams);
 
-                                        dateInstance.add(frequence, 'day');
+                return deferred.promise;
 
-                                        index = checkAbsenceDate(
-                                            dateInstance.format('DD/MM/YYYY'),
-                                            (frequence ? 'AM' : 'PM')
-                                        ); 
-                                        
-                                        if (index) { return index };
+                function selectRangeDate (psMethodName, poSubmitParams, methodParams) {
+                    var startDate = moment(poSubmitParams.dateFrom, 'DD/MM/YYYY');
+                    var endDate = moment(poSubmitParams.dateTo, 'DD/MM/YYYY');
+                    var lngDays = endDate.diff(startDate, 'days') + 1;
 
-                                        // increase day + 0.5
-                                        i += 0.5;
-                                        // change unit  + 1
-                                        j += 1;
-                                    }
-                                    
-                                    // last date
-                                    dateInstance.add(1, 'day');
-                                    if (poDateRange.unitTo == 'AM') {
-                                        index = checkAbsenceDate(dateOlderFormatted, 'AM'); 
-                                        if (index) { return index };
-                                    } 
-                                    else {
-                                        index = checkAbsenceDate(dateOlderFormatted, 'AM'); 
-                                        if (index) { return index };
+                    // methods
+                    var methods = {
+                        "overlap": overlap,
+                        "adjacent" : adjacent,
+                        "near" : near
+                    };
 
-                                        index = checkAbsenceDate(dateOlderFormatted, 'PM'); 
-                                        if (index) { return index };
-                                    }
+                    return methods[psMethodName]();
 
-                                    return false;
-                                },
-                                "adjacent" : function () {
-                                    // adjacent start date
-                                    var dateInstance = moment(startDate).subtract('1','day');
-                                    var dateInstanceFormatted = dateOlder.format('DD/MM/YYYY');
+                    function overlap () {
+                        // scope variables
+                        var result = false;
+                        var dateInstance = moment(startDate);
 
-                                    var index = checkAbsenceDate(dateInstanceFormatted, 'AM'); 
-                                    if (index) { return index };
+                        $log.debug('StartDate: ' + startDate.format('DD/MM/YYYY') + '-' + poSubmitParams.unitFrom + ' endDate: ' + endDate.format('DD/MM/YYYY') + '-' + poSubmitParams.unitFrom + ' lngDays: ' + lngDays);
+                        
+                        // loop
+                        // I used two index one is for alternate the Unit and the other one is for increase the Date
+                        for (var i = 0, j = 0; i < lngDays;) {
+                            
+                            // first date do 'PM'
+                            if (i == 0 && poSubmitParams.unitFrom == 'PM') {
+                                i += 0.5; // increase day + 0.5
+                                j += 0.5; // increase day + 0.5
+                            }
 
-                                    index = checkAbsenceDate(dateInstanceFormatted, 'PM'); 
-                                    if (index) { return index };
+                            // logic check
+                            var dateFrequence = Number.isInteger(i) && i > 0 ? 1 : 0;
+                            var unitFrequence = Number.isInteger(j) ? 0 : 1;
 
-                                    // adjacent end date
-                                    dateInstance = moment(endDate).add('1','day');
-                                    dateInstanceFormatted = dateOlder.format('DD/MM/YYYY');
-                                    
-                                    index = checkAbsenceDate(dateInstanceFormatted, 'AM'); 
-                                    if (index) { return index };
+                            dateInstance.add(dateFrequence, 'day'); // when i is even increase one day
+                            var unit = unitFrequence ? 'PM' : 'AM'; // numbers odd = 'PM' & even = 'AM'
 
-                                    index = checkAbsenceDate(dateInstanceFormatted, 'PM'); 
-                                    if (index) { return index };
-                                },
-                                "near" : function () {
-
-                                }
+                            result = checkAbsenceDate(
+                                dateInstance.format('DD/MM/YYYY'),
+                                unit
+                            ); 
+                            
+                            if (result) { 
+                                return result;
                             };
 
-                            var startDate = moment(poDateRange.dateFrom, 'DD/MM/YYYY');
-                            var endDate = moment(poDateRange.dateTo, 'DD/MM/YYYY');
-                            var lngDays = endDate.diff(startDate, 'days');
+                            //$log.debug('date checked: ' + dateInstance.format('DD/MM/YYYY') + '-' + unit, ' i = ' + i + ' j = ' + j);
 
-                            return methods[methodName]();
+                            // last date do 'AM'
+                            if (i == lngDays -1 && poSubmitParams.unitTo == 'AM') {
+                                i += 1; // increase day + 0.5
+                            }
+
+                            // loop increase indexes do 'AM' and 'PM'
+                            i += 0.5; // increase day + 0.5
+                            j += 0.5; // change unit  + 0.5
                         }
 
-                        // DD/MM/YYYY-AM
-                        function checkAbsenceDate (psDate, psUnit) {
-                            var index = AbsenceData.data.map(function(obj, index, array){
-                                if (
-                                    psDate === obj.date &&
-                                    psUnit === obj.unit
-                                ) {
-                                    save.push(obj);
-                                }
+                        return false;
+                    };
 
-                                return obj.date + '-' + obj.unit;
-                            }).indexOf(psDate + '-' + psUnit);
+                    function adjacent () {
+                        // adjacent start date
+                        var dateInstance = moment(startDate).subtract('1','day');
+                        var dateInstanceFormatted = dateOlder.format('DD/MM/YYYY');
 
-                            return (index >= 0);
-                        }
+                        var index = checkAbsenceDate(dateInstanceFormatted, 'AM'); 
+                        if (index) { return index };
 
-                        function getAbsenceDate (psDate,psUnit) {
-                            var arr = [];
+                        index = checkAbsenceDate(dateInstanceFormatted, 'PM'); 
+                        if (index) { return index };
 
-                            AbsenceData.data.map(function(obj, index, array) {
-                                if (
-                                    psDate === obj.date &&
-                                    psUnit === obj.unit
-                                ) {
-                                    arr.push(obj);
-                                }
-                            });
-                        }
+                        // adjacent end date
+                        dateInstance = moment(endDate).add('1','day');
+                        dateInstanceFormatted = dateOlder.format('DD/MM/YYYY');
+                        
+                        index = checkAbsenceDate(dateInstanceFormatted, 'AM'); 
+                        if (index) { return index };
 
+                        index = checkAbsenceDate(dateInstanceFormatted, 'PM'); 
+                        if (index) { return index };
+                    };
 
-                    });
+                    function near () {
+
+                    };
+
+                    // DD/MM/YYYY-AM
+                    function checkAbsenceDate (psDate, psUnit) {
+                        var saveDateMatch = [];
+                        var result = poaAbsenceData.data.map(function(obj, index, array){
+                            if (
+                                psDate === obj.date &&
+                                psUnit === obj.unit
+                            ) {
+                                saveDateMatch.push(obj);
+                            }
+
+                            return obj.date + '-' + obj.unit;
+                        }).indexOf(psDate + '-' + psUnit);
+
+                        return (result >= 0);
+                    };
+                }
             }
         }
 

@@ -46,6 +46,7 @@
                             <div ng-switch on="currentUser !== null">
                               <div ng-switch-when="true">
                                   <span>Hi <strong>{{currentUser.name}}</strong></span>
+                                  <span>Holidays: <strong>{{currentUser.holidayLeft}}</strong>/ {{currentUser.bankHolidays}}</span>
                               </div>
                               <div ng-switch-default>
                                 <a href="#/">Sign up</a> /
@@ -115,6 +116,7 @@
     <!-- endbuild -->
 
     <!-- build:js(.) scripts/vendor.js -->
+    <script src="vendor/polyfill.js"></script>
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>

@@ -5,6 +5,8 @@
 2:00 - organized app folders structure and doc
 2:00 - search d3 example & analysis data model
 18:30 - desing
-20:00 - angularJS
+24:00 - angularJS
+
+20:17/
 
 studying d3

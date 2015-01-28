@@ -19,10 +19,23 @@ angular
 		$scope.maxDate = nextYear.format("DD/MM/YYYY");
 
 		$scope.request = function(){
+			var submitParams = this.absenceSubmit;
+
 			AbsenceService
-			    .submit(this.absenceSubmit)
-			    .then(function(res) {
-			            $log.debug('request()', res);
-			        });
+				.get()
+			    .then(
+			    	function (resolve) {
+			    		return AbsenceService.checkClashes(resolve, submitParams)
+			    }, 
+			    	function (reject) {
+			    		return 'get does not get'
+			    })
+			    .then(
+			    	function (resolve) {
+			    		return AbsenceService.post(resolve)
+			    }, 
+			    	function (reject){
+			    		return 'Absence clash'
+			    });
 		};
 	});
