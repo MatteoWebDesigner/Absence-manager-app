@@ -46,8 +46,7 @@ var Absences = [
 
 var index = Absences.map(function(e){return e.date}).indexOf('01/01/2015');
 
-// add limit absence
-
+TODO add limit Absence
 
 linechart
 http://codepen.io/sravikiran/pen/wFEvH
