@@ -20,7 +20,7 @@ angular
                 setTimeout(function() {
                     // response from the server
                     $log.debug('EXAMPLE SERVER UPDATE REQUEST', poSubmitParams);
-                    deferred.resolve('Absence submitted');
+                    deferred.resolve('Absence ' + poSubmitParams.dateTo + ' ' + poSubmitParams.unitTo + '  ' + poSubmitParams.dateFrom + ' ' + poSubmitParams.unitFrom + ' submitted.');
                 }, 200);
 
                 return deferred.promise;
@@ -29,21 +29,22 @@ angular
                 var deferred = $q.defer();
 
                 if ( selectRangeDate('overlap', poSubmitParams) ) {
-                    deferred.reject('Absenteeism overlaps with another user'); ;
+                    deferred.reject('Absenteeism overlaps with another user');
                 }
 
-                // if ( selectRangeDate('adjacent', poSubmitParams) ) {
-                //     deferred.reject('Absenteeism is adjacent to another user');
-                // }
-                // if ( selectRangeDate('near', poSubmitParams, 4) ) {
-                //     deferred.reject('Absenteeism is within 4 days of another user');
-                // }
+                if ( selectRangeDate('near', poSubmitParams, {rangeDay:1}) ) {
+                    deferred.reject('Absenteeism is adjacent to another user');
+                }
+
+                if ( selectRangeDate('near', poSubmitParams, {rangeDay:4}) ) {
+                    deferred.reject('Absenteeism is within 4 days of another user');
+                }
 
                 deferred.resolve(poSubmitParams);
 
                 return deferred.promise;
 
-                function selectRangeDate (psMethodName, poSubmitParams, methodParams) {
+                function selectRangeDate (psMethodName, poSubmitParams, poMethodParams) {
                     var startDate = moment(poSubmitParams.dateFrom, 'DD/MM/YYYY');
                     var endDate = moment(poSubmitParams.dateTo, 'DD/MM/YYYY');
                     var lngDays = endDate.diff(startDate, 'days') + 1;
@@ -51,13 +52,12 @@ angular
                     // methods
                     var methods = {
                         "overlap": overlap,
-                        "adjacent" : adjacent,
                         "near" : near
                     };
 
-                    return methods[psMethodName]();
+                    return methods[psMethodName](poSubmitParams, poMethodParams);
 
-                    function overlap () {
+                    function overlap (poSubmitParams) {
                         // scope variables
                         var result = false;
                         var dateInstance = moment(startDate);
@@ -90,7 +90,7 @@ angular
                                 return result;
                             };
 
-                            //$log.debug('date checked: ' + dateInstance.format('DD/MM/YYYY') + '-' + unit, ' i = ' + i + ' j = ' + j);
+                            $log.debug('date checked: ' + dateInstance.format('DD/MM/YYYY') + '-' + unit, ' i = ' + i + ' j = ' + j);
 
                             // last date do 'AM'
                             if (i == lngDays -1 && poSubmitParams.unitTo == 'AM') {
@@ -105,30 +105,54 @@ angular
                         return false;
                     };
 
-                    function adjacent () {
-                        // adjacent start date
-                        var dateInstance = moment(startDate).subtract('1','day');
-                        var dateInstanceFormatted = dateOlder.format('DD/MM/YYYY');
+                    function near (poSubmitParams, poParams) {
+                        // scope variables
+                        var result = false;
 
-                        var index = checkAbsenceDate(dateInstanceFormatted, 'AM'); 
-                        if (index) { return index };
+                        var dateInstance = null;
+                        var startDateInstance = moment(startDate);
+                        var endDateInstance = moment(endDate);
 
-                        index = checkAbsenceDate(dateInstanceFormatted, 'PM'); 
-                        if (index) { return index };
+                        var lngDays = poParams.rangeDay;
+                        var lngLoop = lngDays * 2;
 
-                        // adjacent end date
-                        dateInstance = moment(endDate).add('1','day');
-                        dateInstanceFormatted = dateOlder.format('DD/MM/YYYY');
+                        $log.debug('StartDate: ' + startDateInstance.format('DD/MM/YYYY') + '-' + poSubmitParams.unitFrom + ' endDate: ' + endDateInstance.format('DD/MM/YYYY') + '-' + poSubmitParams.unitFrom + ' lngDays: ' + lngDays);
                         
-                        index = checkAbsenceDate(dateInstanceFormatted, 'AM'); 
-                        if (index) { return index };
+                        // loop
+                        // I used two index one is for alternate the Unit and the other one is for increase the Date
+                        for (var i = 0, j = 0; i < lngLoop;) {
+                            // logic check
+                            var dateFrequence = Number.isInteger(i) ? 1 : 0;
+                            var unitFrequence = Number.isInteger(j) ? 0 : 1;
 
-                        index = checkAbsenceDate(dateInstanceFormatted, 'PM'); 
-                        if (index) { return index };
-                    };
+                            // choose date
+                            if (i < lngDays) {
+                                startDateInstance.subtract(dateFrequence,'day');
+                                dateInstance = startDateInstance;
+                            } else {
+                                endDateInstance.add(dateFrequence,'day');
+                                dateInstance = endDateInstance;
+                            }
 
-                    function near () {
+                            var unit = unitFrequence ? 'PM' : 'AM'; // numbers odd = 'PM' & even = 'AM'
 
+                            result = checkAbsenceDate(
+                                dateInstance.format('DD/MM/YYYY'),
+                                unit
+                            ); 
+                            
+                            if (result) { 
+                                return result;
+                            };
+
+                            $log.debug('date checked: ' + dateInstance.format('DD/MM/YYYY') + '-' + unit, ' i = ' + i + ' j = ' + j);
+
+                            // loop increase indexes do 'AM' and 'PM'
+                            i += 0.5; // increase day + 0.5
+                            j += 0.5; // change unit  + 0.5
+                        }
+
+                        return false;
                     };
 
                     // DD/MM/YYYY-AM

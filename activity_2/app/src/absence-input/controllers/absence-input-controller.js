@@ -23,19 +23,46 @@ angular
 
 			AbsenceService
 				.get()
+			    
+			    // check Dates Clashes
 			    .then(
 			    	function (resolve) {
-			    		return AbsenceService.checkClashes(resolve, submitParams)
+			    		return AbsenceService.checkClashes(resolve, submitParams);
 			    }, 
 			    	function (reject) {
-			    		return 'get does not get'
+			    		return alert(reject);
 			    })
+
+			    // POST Dates
 			    .then(
 			    	function (resolve) {
-			    		return AbsenceService.post(resolve)
+			    		return AbsenceService.post(resolve);
 			    }, 
 			    	function (reject){
-			    		return 'Absence clash'
+			    		return alert(reject);
+			    })
+
+			    // POST Response
+			    .then(
+			    	function (resolve) {
+						return alert(resolve);
+			    },
+			    	function (reject) {
+			    		return alert(reject);
 			    });
 		};
+
+		$scope.submit = function () {
+			var submitParams = this.absenceSubmit;
+
+			AbsenceService
+				.post()
+			    .then(
+			    	function (resolve) {
+			    		return resolve;
+			    }, 
+			    	function (reject) {
+			    		return reject;
+			    });
+		}
 	});
