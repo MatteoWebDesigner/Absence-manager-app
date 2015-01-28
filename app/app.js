@@ -31,6 +31,9 @@ angular
                 redirectTo: '/'
             });
     })
+    .constant('Config', {
+        DateFormat : 'DD/MM/YYYY'
+    })
     .constant('AUTH_EVENTS', {
         loginSuccess: 'auth-login-success',
         loginFailed: 'auth-login-failed',
