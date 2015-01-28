@@ -116,7 +116,6 @@
     <!-- endbuild -->
 
     <!-- build:js(.) scripts/vendor.js -->
-    <script src="vendor/polyfill.js"></script>
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
@@ -130,6 +129,19 @@
     <script src="bower_components/d3/d3.js"></script>
     <script src="bower_components/moment/moment.js"></script>
     <!-- endbower -->
+    <script src="vendor/polyfill.js"></script>
+    <!-- endbuild -->
+
+
+    <!-- DATA -->
+    <!-- build:json({.tmp,app}) dump/absences.json -->
+    <!-- devcode: !development -->
+    <script src="dump/absences.json"></script> <!-- grunt is not working here -->
+    <!-- endcode -->
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) dump/density.js -->
+    <script src="dump/density.js"></script>
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -138,8 +150,6 @@
     <!-- devcode: !development -->
     <script src="src/common/app.templates.js"></script>
     <!-- endcode -->
-
-    <script src="dump/density.js"></script>
 
     <!-- Common -->
     <script src="src/common/services/absences-service.js"></script>
@@ -165,5 +175,4 @@
     <script src="src/absence-calendar/controllers/absence-calendar-controller.js"></script>
     <!-- endbuild -->
 </body>
-
 </html>
