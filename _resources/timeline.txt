@@ -1,10 +1,13 @@
-2:00 - Analysis requirements
-3:00 - preparing application structure and grunt configuration
-1:00 - configuration grunt autoprefix 
-2:00 - views folder structure
-2:00 - organized app folders structure and doc
-2:00 - search d3 example & analysis data model
-18:30 - desing
-26:30 - angularJS
+02.00h - Analysis requirements
+03.00h - preparing application structure and grunt configuration
+01.00h - configuration grunt autoprefix 
+02.00h - views folder structure
+02.00h - organized app folders structure and doc
+02.00h - search d3 example & analysis data model
+18.30h - desing
+26.30h - angularJS
+00.30h - configuration connect node server from another device
+04.30h - angularJS
+1:30h - angularJS, improving form validation behavior and lightbox styles
 
 studying d3

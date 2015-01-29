@@ -297,6 +297,9 @@
 }
 #calendar .legend li .dot {
   display: inline-block;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
   border-radius: 50%;
   height: 10px;
@@ -320,6 +323,9 @@
 #chart .controller {
   font-size: 15px;
   margin-bottom: 15px;
+}
+#chart #display {
+  overflow: auto;
 }
 #chart #display path {
   fill-opacity: 0.8;
@@ -391,6 +397,10 @@
 :focus,
 a:focus {
   outline: none;
+}
+::-moz-selection {
+  color: white;
+  background-color: rgba(51, 122, 183, 0.8);
 }
 ::selection {
   color: white;
@@ -630,11 +640,28 @@ h3 {
   opacity: 1;
 }
 #lightbox .container {
+  position: relative;
   width: 80%;
-  padding-bottom: 20px;
+  padding: 20px;
   border-radius: 5px;
   margin-top: 30px;
   background: white;
+}
+#lightbox h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+#lightbox .fa {
+  position: absolute;
+  top: -7px;
+  right: 10px;
+  font-size: 15px;
+}
+#lightbox p {
+  margin-bottom: 14px;
+}
+#lightbox button {
+  margin-right: 6px;
 }
 /* Responsive */
 @media (min-width: 768px) {
@@ -647,5 +674,8 @@ h3 {
   #header .bs-navbar-collapse {
     float: right;
     background-color: transparent;
+  }
+  #lightbox .container {
+    width: 50%;
   }
 }

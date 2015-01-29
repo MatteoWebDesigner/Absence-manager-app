@@ -9,15 +9,14 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
-    <!-- endbower -->
+        <!-- bower:css -->
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
+        <!-- endbower -->
     <!-- endbuild -->
     
     <!-- build:css(.tmp) styles/main.css -->
-    <!-- <link rel="stylesheet" href="styles/main.css"> -->
-    <link rel="stylesheet" href="src/common/assets/styles/main.css">
+        <link rel="stylesheet" href="src/common/assets/styles/main.css">
     <!-- endbuild -->
 </head>
 
@@ -71,29 +70,7 @@
         </div>
     </footer>
 
-    <!-- lightbox -->
-    <div id="lightbox">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <h2>Alert</h2>
-
-            <p>The dates you are going to request are: 12/01/2015 AM to 14/01/2015 AM (Vacation)</p>
-
-            <p class="bg-warning">Absenteeism is within 4 days of another user</p>
-            <p class="bg-warning">Absenteeism is adjacent to another user</p>
-            <p class="bg-danger">Absenteeism overlaps with another user</p>
-
-            <p>Are you happy to continue?</p>
-
-            <button>Cancel</button>
-            <button>OK</button>
-
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <lightbox></lightbox>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <!--
@@ -116,63 +93,66 @@
     <!-- endbuild -->
 
     <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <script src="bower_components/d3/d3.js"></script>
-    <script src="bower_components/moment/moment.js"></script>
-    <!-- endbower -->
-    <script src="vendor/polyfill.js"></script>
+        <!-- bower:js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="bower_components/angular-touch/angular-touch.js"></script>
+        <script src="bower_components/d3/d3.js"></script>
+        <script src="bower_components/moment/moment.js"></script>
+        <!-- endbower -->
+        <script src="vendor/polyfill.js"></script>
     <!-- endbuild -->
 
 
     <!-- DATA -->
     <!-- build:json({.tmp,app}) dump/absences.json -->
-    <!-- devcode: !development -->
-    <script src="dump/absences.json"></script> <!-- grunt is not working here -->
-    <!-- endcode -->
+        <!-- devcode: !development -->
+        <script src="dump/absences.json"></script> <!-- grunt is not working here -->
+        <!-- endcode -->
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) dump/density.js -->
-    <script src="dump/density.js"></script>
+        <script src="dump/density.js"></script>
     <!-- endbuild -->
 
+
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="app.js"></script>
+        <script src="app.js"></script>
 
-    <!-- devcode: !development -->
-    <script src="src/common/app.templates.js"></script>
-    <!-- endcode -->
+        <!-- devcode: !development -->
+        <script src="src/common/app.templates.js"></script>
+        <!-- endcode -->
 
-    <!-- Common -->
-    <script src="src/common/services/absences-service.js"></script>
-    <script src="src/common/controllers/main-controller.js"></script>
+        <!-- Common -->
+        <script src="src/common/services/absences-service.js"></script>
+        <script src="src/common/controllers/main-controller.js"></script>
+        <script src="src/common/directives/lightbox-directive.js"></script>
+        <script src="src/common/controllers/lightbox-controller.js"></script>
 
-    <!-- user-account -->
-    <script src="src/user-account/services/authorization-service.js"></script>
-    <script src="src/user-account/services/session-service.js"></script>
-    <script src="src/user-account/controllers/login-controller.js"></script>
-    <script src="src/user-account/controllers/user-account-controller.js"></script>
+        <!-- user-account -->
+        <script src="src/user-account/services/authorization-service.js"></script>
+        <script src="src/user-account/services/session-service.js"></script>
+        <script src="src/user-account/controllers/login-controller.js"></script>
+        <script src="src/user-account/controllers/user-account-controller.js"></script>
 
-    <!-- absence-input -->
-    <script src="src/absence-input/directives/validate-date-directive.js"></script>
-    <script src="src/absence-input/directives/absence-input-directive.js"></script>
-    <script src="src/absence-input/controllers/absence-input-controller.js"></script>
+        <!-- absence-input -->
+        <script src="src/absence-input/directives/validate-date-directive.js"></script>
+        <script src="src/absence-input/directives/absence-input-directive.js"></script>
+        <script src="src/absence-input/controllers/absence-input-controller.js"></script>
 
-    <!-- chart -->
-    <script src="src/absence-chart/directives/absence-chart-directive.js"></script>
-    <script src="src/absence-chart/controllers/absence-chart-controller.js"></script>
+        <!-- chart -->
+        <script src="src/absence-chart/directives/absence-chart-directive.js"></script>
+        <script src="src/absence-chart/controllers/absence-chart-controller.js"></script>
 
-    <!-- calendar -->
-    <script src="src/absence-calendar/directives/absence-calendar-directive.js"></script>
-    <script src="src/absence-calendar/controllers/absence-calendar-controller.js"></script>
+        <!-- calendar -->
+        <script src="src/absence-calendar/directives/absence-calendar-directive.js"></script>
+        <script src="src/absence-calendar/controllers/absence-calendar-controller.js"></script>
     <!-- endbuild -->
 </body>
 </html>

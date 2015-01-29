@@ -1,0 +1,33 @@
+<div id="lightbox" ng-class="{active : display}" class="{{type}}">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" ng-switch="type">
+                <div ng-switch-when="alert">
+					<i class="fa fa-exclamation-triangle"></i>
+                    <h2>Alert !</h2>
+
+                    <p>{{message.situation}}</p>
+
+                    <p ng-class="{
+						'bg-warning' : message.type == 'warning',
+						'bg-danger' : message.type == 'danger'
+					}">
+                    	{{message.problem}}
+                    </p>
+
+                    <p>{{message.next}}</p>
+
+                    <button class="btn btn-primary" ng-click="close()">Cancel</button>
+                    <button class="btn btn-primary" ng-click="close(action)">OK</button>
+                </div>
+
+                <div ng-switch-default>
+                	<i class="fa fa-info-circle"></i>
+                    <h2>Info:</h2>
+                    <p>{{message.situation}}</p>
+                    <button class="btn btn-primary" ng-click="close()">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

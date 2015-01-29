@@ -18,9 +18,17 @@ angular
 
                 // emulate the server response
                 setTimeout(function() {
+                    
                     // response from the server
                     $log.debug('EXAMPLE SERVER UPDATE REQUEST', poSubmitParams);
-                    deferred.resolve('Absence ' + poSubmitParams.dateTo + ' ' + poSubmitParams.unitTo + '  ' + poSubmitParams.dateFrom + ' ' + poSubmitParams.unitFrom + ' submitted.');
+
+                    deferred.resolve({
+                        type : 'default',
+                        message : {
+                            situation : 'Your Absence ' + poSubmitParams.dateFrom + ' ' + poSubmitParams.unitFrom + ' to ' + poSubmitParams.dateTo + ' ' + poSubmitParams.unitTo + ' (' + poSubmitParams.type + ') submission is completed.'
+                        }
+                    });
+
                 }, 200);
 
                 return deferred.promise;
@@ -28,16 +36,54 @@ angular
             checkClashes : function (poaAbsenceData, poSubmitParams) {
                 var deferred = $q.defer();
 
+                var $this = this;
+
                 if ( selectRangeDate('overlap', poSubmitParams) ) {
-                    deferred.reject('Absenteeism overlaps with another user');
+                    deferred.reject({
+                        type : 'alert',
+                        message : {
+                            type : 'danger',
+                            situation : 'The dates you are going to request are:' ,
+                            problem : 'Overlaps with another user',
+                            next : 'Do you still want submit your Absence request?'
+                        },
+                        action : {
+                            fn : $this.post,
+                            arguments : poSubmitParams
+                        }
+                    });
                 }
 
                 if ( selectRangeDate('near', poSubmitParams, {rangeDay:1}) ) {
-                    deferred.reject('Absenteeism is adjacent to another user');
+                    deferred.reject({
+                        type : 'alert',
+                        message : {
+                            type : 'warning',
+                            situation : 'The dates you are going to request are:' ,
+                            problem : 'Adjacent to another user',
+                            next : 'Do you still want submit your Absence request?'
+                        },
+                        action : {
+                            fn : $this.post,
+                            arguments : poSubmitParams
+                        }
+                    });
                 }
 
                 if ( selectRangeDate('near', poSubmitParams, {rangeDay:4}) ) {
-                    deferred.reject('Absenteeism is within 4 days of another user');
+                    deferred.reject({
+                        type : 'alert',
+                        message : {
+                            type : 'warning',
+                            situation : 'The dates you are going to request are:' ,
+                            problem : 'Within 4 days of another user',
+                            next : 'Do you still want submit your Absence request?'
+                        },
+                        action : {
+                            fn : $this.post,
+                            arguments : poSubmitParams
+                        }
+                    });
                 }
 
                 deferred.resolve(poSubmitParams);

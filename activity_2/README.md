@@ -63,7 +63,23 @@ If not, visit <http://nodejs.org/download/> to get the latest node.js and npm
 
 				{{repeat sub-module's folders}}
 
+### Run the server
+	> Grunt serve
+
+### Access Node Server from outside
+Configure window firewall. Add a port 1337. 
+If you want view the web app on another device use the IPv4 is using the machine is running the node server and add the port Address 
+You can get the IPv4 on Windows using on your cmd
+	> ipconfig
+
+e.g.: 192.186.2.90:1337
+
+reference:
+<http://userx.co.za/journal/accessing-grunt-connect-server-on-wifi-network>
+<http://www.mobitechie.com/android-2/how-to-access-localhost-on-android-over-wifi/>
+
 ### URL
+- localhost: <http://localhost:1337/>
 - PRD: <http://matteowebdesigner.com/test/mudano/>
 # Setting up the project
 The project uses the [git flow](http://nvie.com/posts/a-successful-git-branching-model/) method to implement the continuous integration.
@@ -90,11 +106,13 @@ Use Grunt for build Production web app
 
 
 # How it works
-
-## TODO
-
+Mobily first
+ng template
 
 # TO DO
+TODO create lightbox
+TODO create toolip
+TODO homepage redirect to log-In if you are not login
 TODO improve form validation dates do more test
 TODO add validation even on the UNIT select input
 TODO add limit Absence
