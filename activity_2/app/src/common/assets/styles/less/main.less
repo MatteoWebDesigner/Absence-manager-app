@@ -272,16 +272,38 @@ h3 {
 	}
 	
 	.container {
+		position: relative;
 		width: 80%;
-		padding-bottom: 20px;
+		padding: 20px;
 		border-radius: 5px;
 		margin-top: 30px;
 		background: white;
+	}
+
+	h2 {
+		margin-top: 0;
+		font-size: 20px;
+	}
+
+	.fa {
+		position: absolute;
+		top: -7px;;
+		right: 10px;
+		font-size: 15px;
+	}
+
+	p {
+		margin-bottom: 14px;
+	}
+
+	button { 
+		margin-right: 6px; 
 	}
 }
 
 /* Responsive */
 @media (min-width: 768px) {
+	
 	#header {
 		/* responsive navigation */
 		.navbar-header {
@@ -293,6 +315,15 @@ h3 {
 			background-color: transparent;
 		}
 	}
+
+	#lightbox {
+		.container {
+			width: 50%;
+		}
+	}
+
 }
 
-@media (min-width: 992px) {}
+@media (min-width: 992px) {
+	
+}
