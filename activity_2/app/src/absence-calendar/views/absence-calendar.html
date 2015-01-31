@@ -1,8 +1,8 @@
 <div>
 	<div class="controller">
-		<button><span class="arrow">Prev Month</span></button>
-		<div class="title">January</div>
-		<button><span class="arrow">Next Month</span></button>
+		<button ng-click="prevMonth()"><span class="arrow">Prev Month</span></button>
+		<div class="title">{{nameMonth}} {{year}}</div>
+		<button ng-click="nextMonth()"><span class="arrow">Next Month</span></button>
 	</div>
 
 	<ul class="display clear">

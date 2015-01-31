@@ -1,4 +1,4 @@
-<div id="lightbox" ng-class="{active : display}" class="{{type}}">
+<div id="lightbox" class="{{type}}" ng-show="display">
     <div class="container">
         <div class="row">
             <div class="col-md-12" ng-switch="type">
@@ -17,8 +17,8 @@
 
                     <p>{{message.next}}</p>
 
-                    <button class="btn btn-primary" ng-click="close()">Cancel</button>
-                    <button class="btn btn-primary" ng-click="close(action)">OK</button>
+                    <button class="btn btn-primary" ng-click="close(action.cancel)">Cancel</button>
+                    <button class="btn btn-primary" ng-click="close(action.ok)">OK</button>
                 </div>
 
                 <div ng-switch-default>

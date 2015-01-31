@@ -624,7 +624,6 @@ h3 {
   overflow: hidden;
 }
 #lightbox {
-  display: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -632,12 +631,11 @@ h3 {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
-  opacity: 0;
-  transition: opacity 2s;
+  transition: opacity .2s, top .2s;
 }
-#lightbox.active {
-  display: block;
-  opacity: 1;
+#lightbox.ng-hide {
+  top: -20px;
+  opacity: 0;
 }
 #lightbox .container {
   position: relative;

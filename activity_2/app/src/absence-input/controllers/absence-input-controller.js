@@ -11,62 +11,67 @@ angular
 			type : 'Vacation'
 		};
 
-		var ngAbsenceSubmit = angular.copy($scope.absenceSubmit);
-
 		$scope.minDate = moment().add(1,'days').format("DD/MM/YYYY"); // tomorrow
 		$scope.maxDate = moment().add(1,'days').add(1,'years').format("DD/MM/YYYY"); // next year
 
 		$scope.reset = function () {
-			$scope.absenceSubmit = ngAbsenceSubmit;
+			$scope.absenceSubmit = {
+				dateFrom : '',
+				unitFrom : 'AM',
+				dateTo: '',
+				unitTo : 'AM',
+				type : 'Vacation'
+			};
 			$scope.inputAbsence.$setPristine();
 		}
 
 		$scope.request = function(){
-			var submitParams = this.absenceSubmit;
+			var submitParams = $scope.absenceSubmit;
 
-			AbsenceService
-				.get()
-			    
-			    // check Dates Clashes
-			    .then(
-			    	function (resolve) {
-			    		return AbsenceService.checkClashes(resolve, submitParams);
-			    }, 
-			    	function (reject) {
-			    		$rootScope.$broadcast('openLightBox', reject);
-			    })
+			// STEP 1 - GET DATA
+			AbsenceService.get().then(absenceCheckClashes, errorHandler);
 
-			    // POST Dates
-			    .then(
-			    	function (resolve) {
-			    		return AbsenceService.post(resolve);
-			    }, 
-			    	function (reject){ 
-			    		$rootScope.$broadcast('openLightBox', reject);
-			    })
+			// STEP 2 or END - CHECK DATES
+			function absenceCheckClashes (resolve) {
+				return AbsenceService.checkClashes(resolve, submitParams)
+				.then($scope.submit, errorHandler);
+			}
 
-			    // POST Response
-			    .then(
-			    	function (resolve) {
-						$rootScope.$broadcast('openLightBox', resolve);
-						$scope.reset();
-			    },
-			    	function (reject) {
-			    		$rootScope.$broadcast('openLightBox', reject);
-			    });
+			// // STEP 3 - POST and END
+			// function absencePost (resolve) {
+			// 	return AbsenceService.post(submitParams)
+			// 	.then(resolveHandler, errorHandler);
+			// }
+
+			function errorHandler (reject) {
+				if (reject.action) {
+					reject.action.ok = $scope.submit;
+				}
+
+				$rootScope.$broadcast('openLightBox', reject);
+			    return reject;
+			}
+
+			// function resolveHandler (resolve) {
+			// 	$rootScope.$broadcast('openLightBox', resolve);
+			// 	$scope.reset();	
+			// }
 		};
 
 		$scope.submit = function () {
-			var submitParams = this.absenceSubmit;
+			var submitParams = $scope.absenceSubmit;
 
 			AbsenceService
-				.post()
+				.post(submitParams)
 			    .then(
 			    	function (resolve) {
-			    		return resolve;
-			    }, 
+						$rootScope.$broadcast('openLightBox', resolve);
+						$scope.reset();	
+			    	}, 
 			    	function (reject) {
-			    		return reject;
+			    		$rootScope.$broadcast('openLightBox', reject);
 			    });
 		}
+
+		$scope.$on('submit', $scope.submit);
 	});

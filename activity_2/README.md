@@ -106,8 +106,11 @@ Use Grunt for build Production web app
 
 
 # How it works
-Mobily first
-ng template
+Mobily first & Responsive
+Grunt configuration
+grunt ng template
+CSS3 and transition
+
 
 # TO DO
 TODO create lightbox

@@ -3,33 +3,31 @@
 angular
 	.module('AbsenceManager')
 	.controller('CalendarController', function($scope, AbsenceService){
-		var monthData = [];
+		$scope.year = moment().year();
+		$scope.indexMonth = moment().month();
+		$scope.nameMonth = moment($scope.indexMonth).format('MMMM');
 		
-		var year = moment().year()
-		var indexMonth =  moment().month();
-		var nameMonth = moment(indexMonth).format('MMMM');
-		var lngMonth = moment().endOf("month").date();
+		$scope.CalendarDate = moment().set({
+			'year': $scope.year, 
+			'month': $scope.indexMonth,
+			'date': 1
+		});
 
-		// service
-		for (var i = 0; i < lngMonth; i++) {
-			var date = moment({d:i+1, m:indexMonth, y:year});
-			var dayOfWeek = date.days();
+		//$scope.MonthData = AbsenceService.MonthCalendar($scope.indexMonth, $scope.year);
 
-			var isWeekend = (dayOfWeek == 6) || (dayOfWeek == 0);
-			if (isWeekend) { continue; }
+		$scope.prevMonth = function () {
+			$scope.CalendarDate.subtract('1','month');
+			$scope.year = $scope.CalendarDate.year();
+			$scope.nameMonth = $scope.CalendarDate.format('MMMM');
 
-			// create object
-			monthData.push({
-				fullDate : date.format('DD/MM/YYYY'),
-				number : date.date(),
-				user : [{},{}],
-				am : [],
-				pm : []
-			});
+			$scope.MonthData = AbsenceService.MonthCalendar($scope.CalendarDate.month(), $scope.CalendarDate.year());
 		}
 
-		// public scope
-		$scope.MonthData = monthData;
-		$scope.indexMonth = indexMonth;
-		$scope.nameMonth = nameMonth;
+		$scope.nextMonth = function () {
+			$scope.CalendarDate.add('1','month');
+			$scope.year = $scope.CalendarDate.year();
+			$scope.nameMonth = $scope.CalendarDate.format('MMMM');
+
+			$scope.MonthData = AbsenceService.MonthCalendar($scope.CalendarDate.month(), $scope.CalendarDate.year());
+		}
 	});
