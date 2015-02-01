@@ -14,6 +14,8 @@ angular
 		$scope.minDate = moment().add(1,'days').format("DD/MM/YYYY"); // tomorrow
 		$scope.maxDate = moment().add(1,'days').add(1,'years').format("DD/MM/YYYY"); // next year
 
+		$scope.focus = false;
+
 		$scope.reset = function () {
 			$scope.absenceSubmit = {
 				dateFrom : '',
@@ -37,12 +39,6 @@ angular
 				.then($scope.submit, errorHandler);
 			}
 
-			// // STEP 3 - POST and END
-			// function absencePost (resolve) {
-			// 	return AbsenceService.post(submitParams)
-			// 	.then(resolveHandler, errorHandler);
-			// }
-
 			function errorHandler (reject) {
 				if (reject.action) {
 					reject.action.ok = $scope.submit;
@@ -51,11 +47,6 @@ angular
 				$rootScope.$broadcast('openLightBox', reject);
 			    return reject;
 			}
-
-			// function resolveHandler (resolve) {
-			// 	$rootScope.$broadcast('openLightBox', resolve);
-			// 	$scope.reset();	
-			// }
 		};
 
 		$scope.submit = function () {
@@ -70,8 +61,13 @@ angular
 			    	}, 
 			    	function (reject) {
 			    		$rootScope.$broadcast('openLightBox', reject);
-			    });
+			    	});
 		}
 
 		$scope.$on('submit', $scope.submit);
+		$scope.$on('fillInput', function ($on, dateFrom, dateTo) {
+			$scope.absenceSubmit.dateFrom = dateFrom;
+			$scope.absenceSubmit.dateTo = dateTo;
+			$scope.focus = true;
+		})
 	});

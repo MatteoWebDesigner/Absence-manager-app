@@ -31,8 +31,17 @@ angular
                 redirectTo: '/'
             });
     })
+    .run(function($rootScope, $location, AuthService){
+        $rootScope.$on("$routeChangeStart", function (event, next, current) {
+
+            if ( !AuthService.isAuthenticated() && !($location.path() == '/login')) {
+                $location.path('/login/');
+            }
+
+        });
+    })
     .constant('Config', {
-        DateFormat : 'DD/MM/YYYY'
+        dateFormat : 'DD/MM/YYYY'
     })
     .constant('AUTH_EVENTS', {
         loginSuccess: 'auth-login-success',
@@ -41,10 +50,4 @@ angular
         sessionTimeout: 'auth-session-timeout',
         notAuthenticated: 'auth-not-authenticated',
         notAuthorized: 'auth-not-authorized'
-    })
-    .constant('USER_ROLES', {
-        all: '*',
-        admin: 'admin',
-        editor: 'editor',
-        guest: 'guest'
     });

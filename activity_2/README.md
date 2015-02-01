@@ -69,7 +69,7 @@ If not, visit <http://nodejs.org/download/> to get the latest node.js and npm
 ### Access Node Server from outside
 Configure window firewall. Add a port 1337. 
 If you want view the web app on another device use the IPv4 is using the machine is running the node server and add the port Address 
-You can get the IPv4 on Windows using on your cmd
+You can get the IPv4 on Windows typing on your cmd
 	> ipconfig
 
 e.g.: 192.186.2.90:1337
@@ -89,27 +89,33 @@ When all development done, all features shoud be merged to development branch. T
 
 
 # Testing project
-
 ## TODO
 
 
 # Data and E2E Testing
-
 ## TODO
 
 
 # Building project
-
 Use Grunt for build Production web app
-
 	> grunt build
 
 
 # How it works
+## TODO
+
+
+# Technology
 Mobily first & Responsive
-Grunt configuration
-grunt ng template
+Less
 CSS3 and transition
+Session Storage
+D3
+Angular
+Angular generator
+grunt ng template
+Yeoman
+Grunt
 
 
 # TO DO

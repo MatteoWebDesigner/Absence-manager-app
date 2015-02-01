@@ -8,5 +8,6 @@ angular
 			, replace: true
 			, controller: 'CalendarController'
 			, templateUrl: '/src/absence-calendar/views/absence-calendar.html'
+			, link: function($scope, iElm, iAttrs, controller) {}
 		};
 	});

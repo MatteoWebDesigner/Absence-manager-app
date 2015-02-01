@@ -9,10 +9,9 @@
 00.30h - configuration connect node server from another device
 04.30h - angularJS
 01.30h - angularJS, improving form validation behavior and lightbox styles
-
-10:00/11:30 working on the ngAnimate
-12:54/15.16 then chaining does not work
-1h lightbox
-19:20 22:00 angular, lightbox tidy up folder, calendar
-
-studying d3
+01.30h - working on the ngAnimate
+02.00h - then chaining does not work
+01.00h - lightbox
+02.40h - angular, lightbox tidy up folder, calendar
+04.50h - calendar and authetication
+09:30h - calendar, authentication, log-out

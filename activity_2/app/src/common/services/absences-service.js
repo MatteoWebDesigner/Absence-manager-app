@@ -2,13 +2,13 @@
 
 angular
 	.module('AbsenceManager')
-	.factory('AbsenceService', function($log, $q, $http) {
+	.factory('AbsenceService', function($log, $q, $http, Config, Session) {
         // Private
-        function checkAbsenceDate (psDate, psUnit) {
+        function checkAbsenceDate (psFullDate, psUnit) {
             var saveDateMatch = [];
             var result = Service.Data.map(function(obj, index, array){
                 if (
-                    psDate === obj.date &&
+                    psFullDate === obj.date &&
                     psUnit === obj.unit
                 ) {
                     saveDateMatch.push(obj);
@@ -16,10 +16,60 @@ angular
 
                 // DD/MM/YYYY-AM
                 return obj.date + '-' + obj.unit;
-            }).indexOf(psDate + '-' + psUnit);
+            }).indexOf(psFullDate + '-' + psUnit);
 
             return (result >= 0);
         };
+
+        function getListAbsentUser (psFullDate) {
+            var listUser = [];
+            var listUserByID = {};
+
+            Service.Data.map(function(obj, index, array){
+                var userid = obj.userid
+
+                if (
+                    psFullDate === obj.date &&
+                    listUserByID[userid] === undefined
+                ) {
+                    var newObj = {
+                        "userid": userid,
+                        "name": obj.name
+                    }
+
+                    listUserByID[userid] = newObj;
+                    listUser.push(newObj);
+                }
+
+            })
+
+            return listUser;
+        }
+
+        function getDateAbsence (psFullDate, psUnit, pnUserid) {
+            var listAbsences = [];
+            var isUserAbsent = false;
+
+            Service.Data.map(function(obj, index, array){
+                if (
+                    psFullDate === obj.date &&
+                    psUnit === obj.unit
+                ) {
+                    listAbsences.push(obj);
+
+                    if ( obj.userid === pnUserid) {
+                        isUserAbsent = true;
+                    }
+                }
+
+                return obj.userid;
+            });
+
+            return {
+                isUserAbsent : isUserAbsent,
+                listUsersAbsent : listAbsences
+            };
+        }
 
         // Public
         var Service = {};
@@ -71,6 +121,15 @@ angular
             var deferred = $q.defer();
 
             var $this = this;
+
+            if ( !hasEnoughHoliday() ) {
+                deferred.reject({
+                    type : 'default',
+                    message : {
+                        situation : 'You do not have enough holidays left!'
+                    }
+                });
+            }
 
             if ( this.selectRangeDate('overlap', poSubmitParams) ) {
                 deferred.reject({
@@ -128,11 +187,19 @@ angular
             }
 
             return deferred.promise;
+
+            function hasEnoughHoliday () {
+                var dateFrom = moment(poSubmitParams.dateFrom, Config.dateFormat);
+                var dateTo = moment(poSubmitParams.dateTo, Config.dateFormat);
+                var holidaysRequested = dateTo.diff(dateFrom, 'days') + 1;
+
+                return Session.user.daysOffLeft >= holidaysRequested;
+            }
         };
 
         Service.selectRangeDate = function (psMethodName, poSubmitParams, poMethodParams) {
-            var startDate = moment(poSubmitParams.dateFrom, 'DD/MM/YYYY');
-            var endDate = moment(poSubmitParams.dateTo, 'DD/MM/YYYY');
+            var startDate = moment(poSubmitParams.dateFrom, Config.dateFormat);
+            var endDate = moment(poSubmitParams.dateTo, Config.dateFormat);
             var lngDays = endDate.diff(startDate, 'days') + 1;
 
             // methods
@@ -148,7 +215,7 @@ angular
                 var result = false;
                 var dateInstance = moment(startDate);
 
-                $log.debug('StartDate: ' + startDate.format('DD/MM/YYYY') + '-' + poSubmitParams.unitFrom + ' endDate: ' + endDate.format('DD/MM/YYYY') + '-' + poSubmitParams.unitFrom + ' lngDays: ' + lngDays);
+                $log.debug('StartDate: ' + startDate.format(Config.dateFormat) + '-' + poSubmitParams.unitFrom + ' endDate: ' + endDate.format('DD/MM/YYYY') + '-' + poSubmitParams.unitFrom + ' lngDays: ' + lngDays);
                 
                 // loop
                 // I used two index one is for alternate the Unit and the other one is for increase the Date
@@ -168,7 +235,7 @@ angular
                     var unit = unitFrequence ? 'PM' : 'AM'; // numbers odd = 'PM' & even = 'AM'
 
                     result = checkAbsenceDate(
-                        dateInstance.format('DD/MM/YYYY'),
+                        dateInstance.format(Config.dateFormat),
                         unit
                     ); 
                     
@@ -176,7 +243,7 @@ angular
                         return result;
                     };
 
-                    $log.debug('date checked: ' + dateInstance.format('DD/MM/YYYY') + '-' + unit, ' i = ' + i + ' j = ' + j);
+                    $log.debug('date checked: ' + dateInstance.format(Config.dateFormat) + '-' + unit, ' i = ' + i + ' j = ' + j);
 
                     // last date do 'AM'
                     if (i == lngDays -1 && poSubmitParams.unitTo == 'AM') {
@@ -202,7 +269,7 @@ angular
                 var lngDays = poParams.rangeDay;
                 var lngLoop = lngDays * 2;
 
-                $log.debug('StartDate: ' + startDateInstance.format('DD/MM/YYYY') + '-' + poSubmitParams.unitFrom + ' endDate: ' + endDateInstance.format('DD/MM/YYYY') + '-' + poSubmitParams.unitFrom + ' lngDays: ' + lngDays);
+                $log.debug('StartDate: ' + startDateInstance.format(Config.dateFormat) + '-' + poSubmitParams.unitFrom + ' endDate: ' + endDateInstance.format('DD/MM/YYYY') + '-' + poSubmitParams.unitFrom + ' lngDays: ' + lngDays);
                 
                 // loop
                 // I used two index one is for alternate the Unit and the other one is for increase the Date
@@ -223,7 +290,7 @@ angular
                     var unit = unitFrequence ? 'PM' : 'AM'; // numbers odd = 'PM' & even = 'AM'
 
                     result = checkAbsenceDate(
-                        dateInstance.format('DD/MM/YYYY'),
+                        dateInstance.format(Config.dateFormat),
                         unit
                     ); 
                     
@@ -231,7 +298,7 @@ angular
                         return result;
                     };
 
-                    $log.debug('date checked: ' + dateInstance.format('DD/MM/YYYY') + '-' + unit, ' i = ' + i + ' j = ' + j);
+                    $log.debug('date checked: ' + dateInstance.format(Config.dateFormat) + '-' + unit, ' i = ' + i + ' j = ' + j);
 
                     // loop increase indexes do 'AM' and 'PM'
                     i += 0.5; // increase day + 0.5
@@ -242,31 +309,49 @@ angular
             }
         };
 
-        Service.MonthCalendar = function (indexMonth, year) {       
+        Service.getUserAbsences = function (pnUserId) {
+            var listAbsence = [];
+            var absenceCount = 0;
+
+            Service.Data.map(function(obj, index, array){
+                if (obj.userid == pnUserId) {
+                    listAbsence.push(obj);
+                    absenceCount += 0.5;
+                }
+
+            })
+
+            return {
+                list : listAbsence,
+                count : absenceCount,
+            };   
+        }
+
+        Service.MonthDataCalendar = function (poFullDate) {
             var MonthData = [];
 
-            var CurrentDate = moment().set({
-                'year': year, 
-                'month': indexMonth,
-                'date': 1
-            });
+            var userdid = Session.user.id;
+            var iDateMonth = moment(poFullDate, Config.dateFormat);
+            var lngMonth = iDateMonth.daysInMonth();
 
-            var lngMonth = CurrentDate.endOf("month").date();
-
-            for (var i = 0; i < lngMonth; i++) {
-                var date = moment({d:i+1, m:indexMonth, y:year});
-                var dayOfWeek = date.days();
-
-                var isWeekend = (dayOfWeek == 6) || (dayOfWeek == 0);
-                if (isWeekend) { continue; }
+            for (var i = 1; i <= lngMonth; i++) {
+                iDateMonth.set('date', i);
+                var dayNumberDate = iDateMonth.date();
+                var fullDate = iDateMonth.format(Config.dateFormat);
+                
+                var dayOfWeek = iDateMonth.days();
+                if (dayOfWeek == 6 || dayOfWeek == 0) { // skip week-end
+                    continue; 
+                }
 
                 // create object
-                monthData.push({
-                    fullDate : date.format('DD/MM/YYYY'),
-                    number : date.date(),
-                    user : [{},{}],
-                    am : [],
-                    pm : []
+                MonthData.push({
+                    selected : false,
+                    fullDate : fullDate,
+                    number : dayNumberDate,
+                    users : getListAbsentUser(fullDate),
+                    am : getDateAbsence(fullDate,'AM', userdid),
+                    pm : getDateAbsence(fullDate,'PM', userdid)
                 });
             }
 

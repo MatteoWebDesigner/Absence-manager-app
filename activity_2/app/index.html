@@ -35,32 +35,26 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="#/" class="navbar-brand">Absence Manager Tool</a>
+                <a ng-href="#/" class="navbar-brand">Absence Manager Tool</a>
             </div>
 
             <nav class="collapse navbar-collapse bs-navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <div id="account">
-                            <div ng-switch on="currentUser !== null">
-                              <div ng-switch-when="true">
-                                  <span>Hi <strong>{{currentUser.name}}</strong></span>
-                                  <span>Holidays: <strong>{{currentUser.holidayLeft}}</strong>/ {{currentUser.bankHolidays}}</span>
-                              </div>
-                              <div ng-switch-default>
-                                <a href="#/">Sign up</a> /
-                                <a href="#/login/">Log in</a>
-                              </div>
-                          </div>
-                        </div>
-                    </li>
+                <ul id="account" class="nav navbar-nav">
+                    <!-- logged in -->
+                    <li ng-if="currentUser != null">Hi {{currentUser.name}}</li>
+                    <li ng-if="currentUser != null">Holidays: {{currentUser.daysOffLeft}}/{{currentUser.daysOff}}</li>
+                    <li ng-if="currentUser != null"><a ng-href="#/log-out/" ng-click="logout()">Log Out</a></li>
+                    
+                    <!-- not logged in -->
+                    <li ng-if="currentUser == null"><a ng-href="#/">Sign up</a></li>
+                    <li ng-if="currentUser == null"><a ng-href="#/login/">Log in</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <div id="body" ng-view="">
-        <!-- <div class="container" ></div> -->
+        <!-- <div class="container"></div> -->
     </div>
 
     <footer id="footer">

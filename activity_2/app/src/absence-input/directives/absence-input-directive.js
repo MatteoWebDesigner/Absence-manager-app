@@ -30,6 +30,13 @@ angular
 					elm$Label.attr('for', string);
 					elm$Input.attr('id', string);
 				};
+
+				scope.$watch('focus', function () {
+					if ( scope.focus ) {
+						element.find('input').eq(0).focus();
+						scope.focus = false;
+					}
+				})
 			}
 		};
 	});

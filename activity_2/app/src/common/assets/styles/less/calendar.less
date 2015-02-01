@@ -25,6 +25,7 @@
 			border-bottom: 1px solid @calendar-border-color;
 			list-style-type: none;
 			background-color: white;
+			cursor: pointer;
 
 			.am {
 				position: absolute;
@@ -90,15 +91,15 @@
 				}
 			}
 		}
-
-		.am.user-absence,
-		.pm.user-absence {
-			background-color: @user-absence-color;
-		}
 		
 		.am.others-absence,
 		.pm.others-absence {
 			background-color: @others-absence-color;
+		}
+
+		.am.user-absence,
+		.pm.user-absence {
+			background-color: @user-absence-color;
 		}
 	}
 
