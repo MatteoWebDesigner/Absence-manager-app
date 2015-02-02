@@ -318,13 +318,48 @@ angular
                     listAbsence.push(obj);
                     absenceCount += 0.5;
                 }
-
-            })
+            });
 
             return {
                 list : listAbsence,
                 count : absenceCount,
             };   
+        }
+
+        Service.getListUsers = function () {
+            var listUser = [];
+            var listUserByID = {};
+
+            Service.Data.map(function(obj, index, array){
+                var userid = obj.userid
+
+                if (listUserByID[userid] === undefined && userid !== undefined && userid !== '') {
+                    var newObj = {
+                        "userid": userid,
+                        "name": obj.name
+                    }
+
+                    listUserByID[userid] = newObj;
+                    listUser.push(newObj);
+                }
+
+            });
+
+            return listUser;
+        }
+
+        Service.getAbsenceByUser = function (psUserid) {
+            var listRecords = [];
+
+            Service.Data.map(function(obj, index, array){
+                
+                if (obj.userid === psUserid) {
+                    listRecords.push(obj);
+                }
+
+            });
+
+            return listRecords;
         }
 
         Service.MonthDataCalendar = function (poFullDate) {

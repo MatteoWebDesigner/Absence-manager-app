@@ -1,15 +1,18 @@
-<div class="container">
-    <p>You can type every username and password, everything will work. You will log in as { name: 'Matthew Webb', id : '1' }</p>
+<div class="container login">
+    <p>You can type every username and password, everything will work. You will log in as</p>
+    <p>{ name: <strong>'Matthew Webb'</strong>, id : '1' }</p>
 
     <form name="loginForm" ng-controller="LoginController" ng-submit="login(credentials)" novalidate>
         <label>
-        	Username: <input type="text" ng-model="credentials.username">
+        	<span class="text-label">Username:</span>
+            <input type="text" ng-model="credentials.username">
         </label>
 
-        <label for="password" style="padding: 0 20px;">
-        	Password: <input type="password" ng-model="credentials.password">
+        <label for="password">
+            <span class="text-label">Password:</span>
+            <input type="password" ng-model="credentials.password">
         </label>
         
-        <button type="submit">Login</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
     </form>
 </div>

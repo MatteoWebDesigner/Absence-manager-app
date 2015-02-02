@@ -46,6 +46,54 @@ h3 {
     color: #7E7E7E;
 }
 
+label {
+	display: block;
+    position: relative;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 18px;
+    color: #7E7E7E;
+    white-space: nowrap;
+    background-image: linear-gradient(to bottom, #F8F8F8 0%, #e6e6e6 100%);
+
+    .text-label {
+        display: block;
+        float: left;
+        padding: 8px 10px 8px 0;
+        font-size: 16px;
+        color: #7E7E7E;
+        text-align: right
+    }
+
+    input {
+        position: relative;
+		width: 60%;
+        padding: 5px 10px;
+        border: 1px solid darkgrey;
+        border-radius: 10px;
+
+        &:focus {
+            color: #337ab7;
+            border-color: #337ab7;
+            box-shadow: 0px 0px 5px -1px rgba(51, 122, 183,0.8);
+        }
+    }
+
+    select {
+        padding: 6px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+
+        &:focus {
+            color: #337ab7;
+            border-color: #337ab7;
+            box-shadow: 0px 0px 5px -1px rgba(51, 122, 183,0.8);
+        }
+    }
+}
+
 /* general class */
 .clear:after {
 	content: "";
@@ -201,6 +249,8 @@ h3 {
 			}
 		}
 	}
+
+	.login p + p { margin-bottom: 25px; }
 }
 
 #footer {
@@ -318,7 +368,17 @@ h3 {
 
 /* Responsive */
 @media (min-width: 768px) {
-	
+	.login {
+		label {
+			width: 340px;
+			float: left;
+
+			&:nth-child(odd) {
+				margin-right: 30px;
+			}
+		}
+	}
+
 	#header {
 		/* responsive navigation */
 		.navbar-header {
@@ -359,5 +419,27 @@ h3 {
 }
 
 @media (min-width: 992px) {
-	
+	.login {
+		label {
+			width: 335px;
+			margin-right: 30px;
+		}
+
+		button {
+			width: 200px;
+			height: 57px;
+		}
+	}
+}
+
+@media (min-width: 1200px) {
+	.login {
+		label {
+			width: 380px;
+		}
+
+		button {
+			width: 310px;
+		}
+	}
 }

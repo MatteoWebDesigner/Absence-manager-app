@@ -2,21 +2,25 @@
 
 angular
 	.module('AbsenceManager')
-	.directive('validDate', function ($log) {
+	.directive('validDate', function ($log, Config) {
 		return {
 			  retrict: 'A'
 			, require: 'ngModel'
 			, link : function (scope, element, attrs, ctrl) {
 				
-				ctrl.$validators.validdate = function(modelValue, viewValue) {
-				    var date = moment(viewValue, 'DD/MM/YYYY');
-				    var MinDate = moment(attrs.min, 'DD/MM/YYYY');
-				    var MaxDate = moment(attrs.max, 'DD/MM/YYYY');
-				    var optionDateCheck = moment(attrs.validDate, 'DD/MM/YYYY');
+				ctrl.$validators.validdate = function (modelValue, viewValue) {
+				    var date = moment(viewValue, Config.dateFormat);
+				    var MinDate = moment(attrs.min, Config.dateFormat);
+				    var MaxDate = moment(attrs.max, Config.dateFormat);
+				    var optionDateCheck = moment(attrs.validDate, Config.dateFormat);
 
-				    var isDate = moment(viewValue, 'DD/MM/YYYY', true).isValid();
+				    var isDate = moment(viewValue, Config.dateFormat, true).isValid();
 				    var isGreaterMinDate = date >= MinDate;
 				    var isLowerMaxDate = date <= MaxDate;
+
+				    if (!isGreaterMinDate || !isLowerMaxDate) {
+				    	return false;
+				    }
 
 				    if (attrs.validDate != '' && date < optionDateCheck) {
 						return false;
@@ -28,6 +32,7 @@ angular
 
 				    return false;
 				};
+
 			}
 		};
 	});

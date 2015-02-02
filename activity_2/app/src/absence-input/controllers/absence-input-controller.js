@@ -66,8 +66,12 @@ angular
 
 		$scope.$on('submit', $scope.submit);
 		$scope.$on('fillInput', function ($on, dateFrom, dateTo) {
+			$scope.inputAbsence.dateFrom.$setDirty();
 			$scope.absenceSubmit.dateFrom = dateFrom;
+
+			$scope.inputAbsence.dateTo.$setDirty();
 			$scope.absenceSubmit.dateTo = dateTo;
+			
 			$scope.focus = true;
 		})
 	});

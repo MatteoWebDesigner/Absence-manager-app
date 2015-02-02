@@ -1,0 +1,10 @@
+<div>
+	<select ng-model="userSelected" ng-options="user.userid as user.name for user in listUsers"></select>
+
+	<ul>
+		<li ng-repeat="record in listRecords">
+			{{record.date}} - {{record.unit}} - {{record.value}}
+		</li>
+		<li ng-if="listRecords.length == 0">empty records</li>
+	</ul>
+</div>

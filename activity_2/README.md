@@ -119,11 +119,9 @@ Grunt
 
 
 # TO DO
-TODO create lightbox
+TODO add remove record
+TODO Density chart http://codepen.io/sravikiran/pen/wFEvH
+
 TODO create toolip
-TODO homepage redirect to log-In if you are not login
 TODO improve form validation dates do more test
 TODO add validation even on the UNIT select input
-TODO add limit Absence
-TODO select and display absences user
-TODO Density chart http://codepen.io/sravikiran/pen/wFEvH
