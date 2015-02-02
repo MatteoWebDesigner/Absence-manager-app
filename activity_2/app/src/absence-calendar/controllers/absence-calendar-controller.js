@@ -23,6 +23,11 @@ angular
 				$scope.MonthData = AbsenceService.MonthDataCalendar($scope.CalendarDate);
 			});
 
+		// update calendar
+		$scope.$watch('AbsenceData', function(){
+			$scope.MonthData = AbsenceService.MonthDataCalendar($scope.CalendarDate);
+		})
+
 		$scope.prevMonth = function () {
 			// set date
 			$scope.CalendarDate.subtract('1','month');

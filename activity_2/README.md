@@ -119,7 +119,7 @@ Grunt
 
 
 # TO DO
-TODO add remove record
+TODO add/remove record
 TODO Density chart http://codepen.io/sravikiran/pen/wFEvH
 
 TODO create toolip

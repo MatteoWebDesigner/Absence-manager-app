@@ -2,7 +2,17 @@
 
 angular
     .module('AbsenceManager')
-    .controller('UserAccountController', function($scope, $rootScope, $location, AuthService, AUTH_EVENTS) {
+    .controller('UserAccountController', function($scope, $rootScope, $location, AbsenceService, AuthService, AUTH_EVENTS) {
+        
+        // main
+        $scope.AbsenceData = [];
+        AbsenceService
+            .get()
+            .then(function (res) {
+                $scope.AbsenceData = res;
+            });
+
+        // user account
         $scope.currentUser = AuthService.restoreLoginSession();
         $scope.isAuthorized = AuthService.isAuthorized;
 
@@ -18,5 +28,10 @@ angular
 		    $location.path('/login/');
         };
 
-        //$scope.$watch()
+        $scope.$watch('AbsenceData', function(){
+            var userAbsences = AbsenceService.getUserAbsences($scope.currentUser.id).count;
+            var daysOff = $scope.currentUser.daysOff;
+
+            $scope.currentUser.daysOffLeft = daysOff - userAbsences;
+        })
     });

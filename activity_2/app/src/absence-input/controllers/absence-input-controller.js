@@ -7,8 +7,8 @@ angular
 			dateFrom : '',
 			unitFrom : 'AM',
 			dateTo: '',
-			unitTo : 'AM',
-			type : 'Vacation'
+			unitTo : 'PM',
+			type : 'V'
 		};
 
 		$scope.minDate = moment().add(1,'days').format("DD/MM/YYYY"); // tomorrow
@@ -21,8 +21,8 @@ angular
 				dateFrom : '',
 				unitFrom : 'AM',
 				dateTo: '',
-				unitTo : 'AM',
-				type : 'Vacation'
+				unitTo : 'PM',
+				type : 'V'
 			};
 			$scope.inputAbsence.$setPristine();
 		}
@@ -56,8 +56,9 @@ angular
 				.post(submitParams)
 			    .then(
 			    	function (resolve) {
-						$rootScope.$broadcast('openLightBox', resolve);
-						$scope.reset();	
+						$rootScope.$broadcast('openLightBox', resolve.lightbox);
+						$scope.reset();
+						$scope.$parent.$parent.AbsenceData = resolve.AbsenceData;
 			    	}, 
 			    	function (reject) {
 			    		$rootScope.$broadcast('openLightBox', reject);

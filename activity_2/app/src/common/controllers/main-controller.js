@@ -8,11 +8,6 @@
  * Controller of the AbsenceManager
  */
 angular.module('AbsenceManager')
-	.controller('MainController', function ($scope, $rootScope, $location, AuthService, AbsenceService) {
-		$scope.AbsenceData = [];
+	.controller('MainController', function ($scope, $rootScope, AbsenceService) {
 
-		AbsenceService.get()
-			.then(function (res) {
-				$scope.AbsenceData = res;
-			});
 	});

@@ -411,7 +411,7 @@ module.exports = function (grunt) {
           cleancss: false,
           yuicompress: false
         },
-        files: {"<%= yeoman.app %>/src/common/assets/styles/main.css": "<%= yeoman.app %>/src/common/assets/styles/less/{,*/}*.less"}
+        files: {"<%= yeoman.app %>/src/common/assets/styles/main.css": "<%= yeoman.app %>/src/common/assets/styles/less/main.less"}
       },
       dist: {
         options: {
@@ -419,7 +419,7 @@ module.exports = function (grunt) {
           cleancss: true,
           yuicompress: true
         },
-        files: {"<%= yeoman.app %>/src/common/assets/styles/main.css": "<%= yeoman.app %>/src/common/assets/styles/less/{,*/}*.less"}
+        files: {"<%= yeoman.app %>/src/common/assets/styles/main.css": "<%= yeoman.app %>/src/common/assets/styles/less/main.less"}
       }
     },
 
