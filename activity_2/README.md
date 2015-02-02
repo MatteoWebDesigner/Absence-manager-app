@@ -119,9 +119,7 @@ Grunt
 
 
 # TO DO
-TODO add/remove record
-TODO Density chart http://codepen.io/sravikiran/pen/wFEvH
-
+TODO Density chart
 TODO create toolip
 TODO improve form validation dates do more test
 TODO add validation even on the UNIT select input

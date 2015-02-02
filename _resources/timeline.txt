@@ -15,11 +15,4 @@
 02.40h - angular, lightbox tidy up folder, calendar
 04.50h - calendar and authetication
 09:30h - calendar, authentication, log-out
-
-8:26/9:40 - absence record and style absence record and log-in page
-
-12:27/14:00
-
-15:00/16:50
-
-18:00/
+08.40h - absence record and style absence record and log-in page, customized D3 data and styles

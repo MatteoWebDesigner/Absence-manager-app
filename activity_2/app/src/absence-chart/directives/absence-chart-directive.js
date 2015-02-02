@@ -2,12 +2,13 @@
 
 angular
     .module('AbsenceManager')
-    .directive('chartAbsenceDensity', function() {
+    .directive('chartAbsenceDensity', function($window) {
         return {
-            retrict: 'E',
-            replace: true,
-            templateUrl: '/src/absence-chart/views/absence-chart.html',
-            link: function() {
+              retrict: 'E'
+            , replace: true
+            , controller: 'AbsenceChartController'
+            , templateUrl: '/src/absence-chart/views/absence-chart.html'
+            , link: function($scope, iElm, iAttrs, controller) {
                 function distQuant(data, id) {
                     function getPoints(_, i) {
                             return _.map(function(d, j) {
@@ -31,18 +32,9 @@ angular
                         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     }
 
-                    var width = 400,
-                        height = 300,
+                    var height = 300,
                         margin = 20;
-                    var colors = ["#7D74FE", "#7DFF26", "#F84F1B", "#28D8D5", "#FB95B6", "#9D9931", "#F12ABF", "#27EA88", "#549AD5", "#FEA526", "#7B8D8B", "#BB755F", "#432E16",
-                        "#D75CFB", "#44E337", "#51EBE3", "#ED3D24", "#4069AE", "#E1CC72", "#E33E88", "#D8A3B3", "#428B50", "#66F3A3", "#E28A2A", "#B2594D", "#609297", "#E8F03F", "#3D2241",
-                        "#954EB3", "#6A771C", "#58AE2E", "#75C5E9", "#BBEB85", "#A7DAB9", "#6578E6", "#932C5F", "#865A26", "#CC78B9", "#2E5A52", "#8C9D79", "#9F6270", "#6D3377", "#551927", "#DE8D5A",
-                        "#E3DEA8", "#C3C9DB", "#3A5870", "#CD3B4F", "#E476E3", "#DCAB94", "#33386D", "#4DA284", "#817AA5", "#8D8384", "#624F49", "#8E211F", "#9E785B", "#355C22", "#D4ADDE",
-                        "#A98229", "#E88B87", "#28282D", "#253719", "#BD89E1", "#EB33D8", "#6D311F", "#DF45AA", "#E86723", "#6CE5BC", "#765175", "#942C42", "#986CEB", "#8CC488", "#8395E3",
-                        "#D96F98", "#9E2F83", "#CFCBB8", "#4AB9B7", "#E7AC2C", "#E96D59", "#929752", "#5E54A9", "#CCBA3F", "#BD3CB8", "#408A2C", "#8AE32E", "#5E5621", "#ADD837", "#BE3221", "#8DA12E",
-                        "#3BC58B", "#6EE259", "#52D170", "#D2A867", "#5C9CCD", "#DB6472", "#B9E8E0", "#CDE067", "#9C5615", "#536C4F", "#A74725", "#CBD88A", "#DF3066", "#E9D235", "#EE404C", "#7DB362",
-                        "#B1EDA3", "#71D2E1", "#A954DC", "#91DF6E", "#CB6429", "#D64ADC"
-                    ];
+                    var colors = ["#F3B353", "#CACCCD", "#337AB7"];
 
                     function draw(type) {
                         var maxT = d3.max(data[type].map(function(d) {
@@ -60,25 +52,47 @@ angular
                         var svg = d3.select("#" + id).select("." + type);
 
                         //x and y axis maps.
-                        var x = d3.scale.linear().domain([0, data[type].length - 1]).range([0, width]);
-                        var y = d3.scale.linear().domain([0, maxT]).range([height, 0]);
+                        var x = d3
+                            .scale
+                            .linear()
+                            .domain([0, data[type].length - 1])
+                            .range([0, $scope.width]);
 
-                        //draw yellow background for graph.
-                        svg.append("rect").attr("x", 0).attr("y", 0).attr("width", width).attr("height", height).style("fill", "rgb(235,235,209)");
+                        var y = d3
+                            .scale
+                            .linear()
+                            .domain([0, maxT])
+                            .range([height, 0]);
+
+                        //draw transparent background for graph.
+                        svg
+                            .append("rect")
+                            .attr("x", 0)
+                            .attr("y", 0)
+                            .attr("width", $scope.width)
+                            .attr("height", height)
+                            .style("fill", "transparent");
 
                         // draw vertical lines of the grid.
-                        svg.selectAll(".vlines").data(d3.range(51)).enter().append("line").attr("class", "vlines")
-                            .attr("x1", tW).attr("y1", 0)
-                            .attr("x2", tW).attr("y2", function(d, i) {
-                                return d % 10 == 0 && d != 50 ? height + 12 : height;
-                            });
+                        // svg.selectAll(".vlines").data(d3.range(51)).enter().append("line").attr("class", "vlines")
+                        //     .attr("x1", tW).attr("y1", 0)
+                        //     .attr("x2", tW).attr("y2", function(d, i) {
+                        //         return d % 10 == 0 && d != 50 ? height + 12 : height;
+                        //     });
 
                         //draw horizontal lines of the grid.
-                        svg.selectAll(".hlines").data(d3.range(51)).enter().append("line").attr("class", "hlines")
-                            .attr("x1", function(d, i) {
-                                return d % 10 == 0 && d != 50 ? -12 : 0;
-                            })
-                            .attr("y1", tH).attr("x2", width).attr("y2", tH);
+                        // svg
+                        //     .selectAll(".hlines")
+                        //     .data(d3.range(51))
+                        //     .enter()
+                        //     .append("line")
+                        //     .attr("class", "hlines")
+                        //     .attr("x1", function(d, i) {
+                        //         return d % 10 == 0 && d != 50 ? -12 : 0;
+                        //     })
+                        //     .attr("y1", tH)
+                        //     .attr("x2", $scope.width)
+                        //     .attr("y2", tH);
 
                         // make every 10th line in the grid darker. 
                         svg.selectAll(".hlines").filter(function(d) {
@@ -98,20 +112,29 @@ angular
                         }
 
                         function getVLabel(d, i) {
-                                if (type == "dist") { // for dist use the maximum for sum of frequencies and divide it into 5 pieces.
-                                    return Math.round(maxT * i / 5);
-                                } else { // for quantile graph, use percentages in increments of 20%.
-                                    return (i * 20) + ' %';
-                                }
+                            if (type == "dist") { // for dist use the maximum for sum of frequencies and divide it into 5 pieces.
+                                return Math.round(maxT * i / 5);
+                            } else { // for quantile graph, use percentages in increments of 20%.
+                                return (i * 20) + ' %';
                             }
-                            // add horizontal axis labels
-                        svg.append("g").attr("class", "hlabels")
-                            .selectAll("text").data(d3.range(41).filter(function(d) {
+                        }
+
+                        // add horizontal axis labels
+                        svg
+                            .append("g")
+                            .attr("class", "hlabels")
+                            .selectAll("text")
+                            .data(d3.range(41)
+                            .filter(function(d) {
                                 return d % 10 == 0
-                            })).enter().append("text")
-                            .text(getHLabel).attr("x", function(d, i) {
+                            }))
+                            .enter()
+                            .append("text")
+                            .text(getHLabel)
+                            .attr("x", function(d, i) {
                                 return tW(d) + 5;
-                            }).attr("y", height + 14);
+                            })
+                            .attr("y", height + 14);
 
                         // add vertical axes labels.
                         svg.append("g").attr("class", "vlabels")
@@ -125,7 +148,10 @@ angular
                                 return 5;
                             });
 
-                        var area = d3.svg.area().x(function(d) {
+                        var area = d3
+                            .svg
+                            .area()
+                            .x(function(d) {
                                 return x(d.x);
                             })
                             .y0(function(d) {
@@ -152,7 +178,7 @@ angular
                         var stat = svg.append("g").attr("class", "stat");
 
                         stat.append("rect").attr("x", -margin).attr("y", -margin)
-                            .attr("width", width + 2 * margin).attr("height", margin).style("fill", "white");
+                            .attr("width", $scope.width + 2 * margin).attr("height", margin).style("fill", "white");
 
                         // show sum and mean in statistics
                         if (type == "dist") {
@@ -179,7 +205,7 @@ angular
                             return d[p];
                         }));
 
-                        var x = d3.scale.linear().domain([0, data[type].length - 1]).range([0, width]);
+                        var x = d3.scale.linear().domain([0, data[type].length - 1]).range([0, $scope.width]);
                         var y = d3.scale.linear().domain([0, max]).range([height, 0]);
 
                         function tW(d) {
@@ -244,7 +270,7 @@ angular
                             return y(d * maxT / 50);
                         }
 
-                        var x = d3.scale.linear().domain([0, data[type].length - 1]).range([0, width]);
+                        var x = d3.scale.linear().domain([0, data[type].length - 1]).range([0, $scope.width]);
                         var y = d3.scale.linear().domain([0, maxT]).range([height, 0]);
 
                         var area = d3.svg.area().x(function(d) {
@@ -295,24 +321,49 @@ angular
                     }
 
                     // add svg and set attributes for distribution.
-                    d3.select("#" + id).append("svg").attr("width", width + 2 * margin).attr("height", height + 2 * margin)
-                        .append("g").attr("transform", "translate(" + margin + "," + margin + ")").attr("class", "dist");
+                    d3
+                        .select("#" + id)
+                        .append("svg")
+                        .attr("width", $scope.width + 2 * margin)
+                        .attr("height", height + 2 * margin)
+                        .append("g")
+                        .attr("transform", "translate(" + margin + "," + margin + ")")
+                        .attr("class", "dist");
 
                     // Draw the graphs.
                     draw("dist");
 
                     // draw legends.
-                    var legRow = d3.select("#" + id).append("div").attr("class", "legend")
-                        .append("table").selectAll("tr").data(data.dP).enter().append("tr").append("td");
-                    legRow.append("div").style("background", function(d, i) {
+                    var legRow = d3
+                        .select("#" + id)
+                        .append("div")
+                        .attr("class", "legend")
+                        .append("ul")
+                        .selectAll("li")
+                        .data(data.dP)
+                        .enter()
+                        .append("li")
+                        .attr('class', 'item')
+                        .append("span");
+
+                    legRow
+                        .append("span")
+                        .attr('class','dot')
+                        .style("background", function(d, i) {
                             return colors[i];
                         })
-                        .on("mouseover", mouseoverLegend).on("mouseout", mouseoutLegend).style("cursor", "pointer");
+                        .on("mouseover", mouseoverLegend)
+                        .on("mouseout", mouseoutLegend)
+                        .style("cursor", "pointer");
 
-                    legRow.append("span").text(function(d) {
+                    legRow
+                        .append("span")
+                        .text(function(d) {
                             return d[0];
                         })
-                        .on("mouseover", mouseoverLegend).on("mouseout", mouseoutLegend).style("cursor", "pointer");
+                        .on("mouseover", mouseoverLegend)
+                        .on("mouseout", mouseoutLegend)
+                        .style("cursor", "pointer");
                 }
 
                 function drawAll(data, id) {
@@ -326,9 +377,11 @@ angular
                         })
                         .attr("class", "distquantdiv");
 
-                    d3.range(data.length).forEach(function(d, i) {
-                        distQuant(dqData[i], "segment" + i);
-                    });
+                    d3
+                        .range(data.length)
+                        .forEach(function(d, i) {
+                            distQuant(dqData[i], "segment" + i);
+                        });
                 }
 
                 drawAll(dqData, "display");

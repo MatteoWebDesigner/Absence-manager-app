@@ -8,17 +8,17 @@
     }
 
     #display {
-        overflow: auto;
+        overflow: hidden;
         
         path {
             fill-opacity: 0.8;
             stroke-opacity: 0;
         }
         .vlines, .hlines {
-            stroke: rgb(150, 148, 109);
+            stroke: rgb(250, 250, 250);
             shape-rendering: crispEdges;
             stroke-width: 1px;
-            stroke-opacity: 0.3;
+            stroke-opacity: 1;
         }
         .hlabels line, .vlabels line {
             stroke: rgb(150, 148, 109);
@@ -42,12 +42,10 @@
             overflow: auto;
         }
 
-        .legend table {
-            border-collapse: collapse;
-            border-spacing: 0;
+        .legend ul {
+            padding:0;
         }
-        .legend tr, 
-        .legend td, 
+ 
         .legend div {
             margin: 0;
             padding: 0;
@@ -58,12 +56,21 @@
             float: left;
         }
         .legend span {
-            padding: 0 5px;
+            padding: 1px 9px;
             margin: 0
         }
         .legend tr:hover {
             background: silver;
         }
+        
+        .legend .item {
+            margin-bottom: 3px
+        }
+
+        .legend .dot{ 
+            border-radius: 50%; 
+        }
+
         .distquantdiv h3 {
             padding-left: 40px;
             margin-bottom: 0;

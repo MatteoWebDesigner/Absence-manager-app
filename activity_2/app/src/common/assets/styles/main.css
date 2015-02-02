@@ -5,10 +5,6 @@
 a:focus {
   outline: none;
 }
-::-moz-selection {
-  color: white;
-  background-color: rgba(51, 122, 183, 0.8);
-}
 ::selection {
   color: white;
   background-color: rgba(51, 122, 183, 0.8);
@@ -684,9 +680,6 @@ label select:focus {
 }
 #calendar .legend li .dot {
   display: inline-block;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   border-radius: 50%;
   height: 10px;
@@ -711,7 +704,7 @@ label select:focus {
   margin-bottom: 15px;
 }
 #chart #display {
-  overflow: auto;
+  overflow: hidden;
 }
 #chart #display path {
   fill-opacity: 0.8;
@@ -719,10 +712,10 @@ label select:focus {
 }
 #chart #display .vlines,
 #chart #display .hlines {
-  stroke: #96946d;
+  stroke: #fafafa;
   shape-rendering: crispEdges;
   stroke-width: 1px;
-  stroke-opacity: 0.3;
+  stroke-opacity: 1;
 }
 #chart #display .hlabels line,
 #chart #display .vlabels line {
@@ -747,12 +740,9 @@ label select:focus {
   margin-left: 0;
   overflow: auto;
 }
-#chart #display .legend table {
-  border-collapse: collapse;
-  border-spacing: 0;
+#chart #display .legend ul {
+  padding: 0;
 }
-#chart #display .legend tr,
-#chart #display .legend td,
 #chart #display .legend div {
   margin: 0;
   padding: 0;
@@ -763,11 +753,17 @@ label select:focus {
   float: left;
 }
 #chart #display .legend span {
-  padding: 0 5px;
+  padding: 1px 9px;
   margin: 0;
 }
 #chart #display .legend tr:hover {
   background: silver;
+}
+#chart #display .legend .item {
+  margin-bottom: 3px;
+}
+#chart #display .legend .dot {
+  border-radius: 50%;
 }
 #chart #display .distquantdiv h3 {
   padding-left: 40px;
@@ -775,6 +771,9 @@ label select:focus {
 }
 #chart #display .stat {
   font-size: 12px;
+}
+#users-records {
+  margin-bottom: 40px;
 }
 #users-records select {
   width: 100%;
