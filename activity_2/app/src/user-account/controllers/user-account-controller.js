@@ -29,9 +29,11 @@ angular
         };
 
         $scope.$watch('AbsenceData', function(){
-            var userAbsences = AbsenceService.getUserAbsences($scope.currentUser.id).count;
-            var daysOff = $scope.currentUser.daysOff;
+            if ($scope.currentUser !== null) {
+                var userAbsences = AbsenceService.getUserAbsences($scope.currentUser.id).count;
+                var daysOff = $scope.currentUser.daysOff;
 
-            $scope.currentUser.daysOffLeft = daysOff - userAbsences;
+                $scope.currentUser.daysOffLeft = daysOff - userAbsences;
+            }
         })
     });
