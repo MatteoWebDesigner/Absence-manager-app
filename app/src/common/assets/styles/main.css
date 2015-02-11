@@ -5,6 +5,10 @@
 a:focus {
   outline: none;
 }
+::-moz-selection {
+  color: white;
+  background-color: rgba(51, 122, 183, 0.8);
+}
 ::selection {
   color: white;
   background-color: rgba(51, 122, 183, 0.8);
@@ -680,6 +684,9 @@ label select:focus {
 }
 #calendar .legend li .dot {
   display: inline-block;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
   border-radius: 50%;
   height: 10px;
