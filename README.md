@@ -1,4 +1,4 @@
-# Mudano
+# Absence manager tool
 
 - Author: <info@matteowebdesigner.com>
 - Date created: 21/01/2015
