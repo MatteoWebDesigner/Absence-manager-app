@@ -80,7 +80,7 @@ reference:
 
 ### URL
 - localhost: <http://localhost:1337/>
-- PRD: <http://matteowebdesigner.com/test/mudano/>
+- PRD: <http://matteowebdesigner.com/test/absence-manager-app/>
 # Setting up the project
 The project uses the [git flow](http://nvie.com/posts/a-successful-git-branching-model/) method to implement the continuous integration.
 All development should be done on `development` branch. New features goes to `feature/newfeature` and hotfixes to `hotfix/newhotfix`.
