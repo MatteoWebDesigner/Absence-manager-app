@@ -49,8 +49,8 @@ module.exports = function (grunt) {
         tasks: ['newer:copy:styles']
       },
       less: {
-        files: ["<%= yeoman.app %>/**/styles/less/{,*/}*.less"],
-        tasks: ["less:development", 'autoprefixer:development']
+        files: ['<%= yeoman.app %>/**/styles/less/{,*/}*.less'],
+        tasks: ['less:development', 'autoprefixer:development']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -415,19 +415,19 @@ module.exports = function (grunt) {
     less: {
       development: {
         options: {
-          paths: "<%= yeoman.app %>/src/common/assets/styles",
+          paths: '<%= yeoman.app %>/src/common/assets/styles',
           cleancss: false,
           yuicompress: false
         },
-        files: {"<%= yeoman.app %>/src/common/assets/styles/main.css": "<%= yeoman.app %>/src/common/assets/styles/less/main.less"}
+        files: {'<%= yeoman.app %>/src/common/assets/styles/main.css': '<%= yeoman.app %>/src/common/assets/styles/less/main.less'}
       },
       dist: {
         options: {
-          paths: ["<%= yeoman.app %>/src/common/assets/styles"],
+          paths: ['<%= yeoman.app %>/src/common/assets/styles'],
           cleancss: true,
           yuicompress: true
         },
-        files: {"<%= yeoman.app %>/src/common/assets/styles/main.css": "<%= yeoman.app %>/src/common/assets/styles/less/main.less"}
+        files: {'<%= yeoman.app %>/src/common/assets/styles/main.css': '<%= yeoman.app %>/src/common/assets/styles/less/main.less'}
       }
     },
 
